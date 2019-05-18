@@ -1,5 +1,7 @@
 package com.revature.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +17,7 @@ public class Providers {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "provider_id")
 	private int providerId;
 	
 	@Column(nullable = false)
@@ -25,7 +28,7 @@ public class Providers {
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "companyId")
-	public Company company;
+	public List<Company> company;
 	
 	private int status;
 
@@ -53,11 +56,11 @@ public class Providers {
 		Name = name;
 	}
 
-	public Company getCompany() {
+	public List<Company> getCompany() {
 		return company;
 	}
 
-	public void setCompany(Company company) {
+	public void setCompany(List<Company> company) {
 		this.company = company;
 	}
 
@@ -118,7 +121,7 @@ public class Providers {
 				+ company + ", status=" + status + "]";
 	}
 
-	public Providers(int providerId, String description, String name, Company company, int status) {
+	public Providers(int providerId, String description, String name, List<Company> company, int status) {
 		super();
 		this.providerId = providerId;
 		this.description = description;
@@ -131,7 +134,8 @@ public class Providers {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
+
 	
 
 }

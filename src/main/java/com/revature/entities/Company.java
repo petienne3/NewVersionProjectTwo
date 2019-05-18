@@ -1,5 +1,7 @@
 package com.revature.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,13 +24,15 @@ public class Company {
 	
 	private String companyName;
 	
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name= "employeeId")
-	public Employee employee;
+	private String password;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name= "employeeId")
+	public List<Employee> employee;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name="providerId")
-	public Providers provider;
+	public List<Providers> provider;
 
 	public int getCompanyId() {
 		return companyId;
@@ -54,19 +58,27 @@ public class Company {
 		this.companyName = companyName;
 	}
 
-	public Employee getEmployee() {
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public List<Employee> getEmployee() {
 		return employee;
 	}
 
-	public void setEmployee(Employee employee) {
+	public void setEmployee(List<Employee> employee) {
 		this.employee = employee;
 	}
 
-	public Providers getProvider() {
+	public List<Providers> getProvider() {
 		return provider;
 	}
 
-	public void setProvider(Providers provider) {
+	public void setProvider(List<Providers> provider) {
 		this.provider = provider;
 	}
 
@@ -78,6 +90,7 @@ public class Company {
 		result = prime * result + companyId;
 		result = prime * result + ((companyName == null) ? 0 : companyName.hashCode());
 		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((provider == null) ? 0 : provider.hashCode());
 		return result;
 	}
@@ -108,6 +121,11 @@ public class Company {
 				return false;
 		} else if (!employee.equals(other.employee))
 			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
 		if (provider == null) {
 			if (other.provider != null)
 				return false;
@@ -119,14 +137,16 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Company [companyId=" + companyId + ", companyEmail=" + companyEmail + ", companyName=" + companyName
-				+ ", employee=" + employee + ", provider=" + provider + "]";
+				+ ", password=" + password + ", employee=" + employee + ", provider=" + provider + "]";
 	}
 
-	public Company(int companyId, String companyEmail, String companyName, Employee employee, Providers provider) {
+	public Company(int companyId, String companyEmail, String companyName, String password, List<Employee> employee,
+			List<Providers> provider) {
 		super();
 		this.companyId = companyId;
 		this.companyEmail = companyEmail;
 		this.companyName = companyName;
+		this.password = password;
 		this.employee = employee;
 		this.provider = provider;
 	}
@@ -135,7 +155,7 @@ public class Company {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	
 
 }
