@@ -2,7 +2,8 @@ package com.revature.configuration;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
-import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,51 +13,54 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.revature.entities.BenefitPlan;
 import com.revature.entities.Company;
+import com.revature.entities.Employee;
+import com.revature.entities.EmployeeSelection;
+import com.revature.entities.Providers;
+import com.revature.entities.TypeBenefits;
 
 @Configuration
-@EnableTransactionManagement
-public class HibernateConfig {
-	
-	
-		@Value("${JDBC_PASSWORD}")
-		String password;
-		@Value("${JDBC_URL}")
-		String path;
-		@Value("${JDBC_LOGIN}")
-		String role;
+	@EnableTransactionManagement
+	public class HibernateConfig {
+	   @Value("${spring.datasource.url}")
+	  public String jdbcURl;
 
-		@Bean
-		@Inject
-		public LocalSessionFactoryBean getSessionFactory(DataSource dataSource) {
-			System.out.println("Configuring SessionFactory bean");
-			LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-			factoryBean.setConfigLocation(new ClassPathResource("hibernate.cfg.xml"));
+	   @Value("${spring.datasource.username}")
+	  public String dbUsername;
 
-			// Set annotated classes
-			factoryBean.setAnnotatedClasses(Company.class);
+	   @Value("${spring.datasource.password}")
+	  public String dbPassword;
 
-			factoryBean.setDataSource(getDataSource());
-			return factoryBean;
-		}
+	   @Bean
+	   public LocalSessionFactoryBean getSessionFactory() {
+	       System.out.println("COnfiguring seshfactiory bean");
+	       LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
+	       factoryBean.setConfigLocation(new ClassPathResource("hibernate.cfg.xml"));
 
-		@Bean(name = "dataSource")
-		public DataSource getDataSource() {
-			System.out.println("Configuring DataSource bean");
-			BasicDataSource dataSource = new BasicDataSource();
-			dataSource.setDriverClassName("org.postgresql.Driver");
-			dataSource.setUrl(path);
-			dataSource.setUsername(role);
-			dataSource.setPassword(password);
-			return dataSource;
-		}
+	       factoryBean.setAnnotatedClasses(Company.class, Employee.class, EmployeeSelection.class, BenefitPlan.class, Providers.class, TypeBenefits.class);
 
-		@Bean
-		@Inject
-		public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
-			System.out.println("Configuring transaction manager");
-			HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-			transactionManager.setSessionFactory(sessionFactory);
-			return transactionManager;
-		}
-}
+	       factoryBean.setDataSource(getDataSource());
+
+	       return factoryBean;
+	   }
+	   @Bean
+	   @Inject
+	   public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
+	       System.out.println("Configuring transaction manager");
+	       HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+	       transactionManager.setSessionFactory(sessionFactory);
+	       return transactionManager;
+	   }
+	   @Bean(name="dataSource")
+	   public DataSource getDataSource() {
+	       System.out.println("Getting data source");
+	       BasicDataSource dataSource = new BasicDataSource();
+	       dataSource.setDriverClassName("org.postgresql.Driver");
+	       dataSource.setUrl(jdbcURl);
+	       dataSource.setUsername(dbUsername);
+	       dataSource.setPassword(dbPassword);
+	       return dataSource;
+	   }
+	}
+
