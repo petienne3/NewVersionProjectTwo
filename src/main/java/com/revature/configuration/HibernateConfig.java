@@ -21,6 +21,7 @@ import com.revature.entities.Providers;
 import com.revature.entities.TypeBenefits;
 
 @Configuration
+
 	@EnableTransactionManagement
 	public class HibernateConfig {
 	   @Value("${spring.datasource.url}")
@@ -34,7 +35,7 @@ import com.revature.entities.TypeBenefits;
 
 	   @Bean
 	   public LocalSessionFactoryBean getSessionFactory() {
-	       System.out.println("COnfiguring seshfactiory bean");
+	       System.out.println("Configuring seshfactiory bean");
 	       LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 	       factoryBean.setConfigLocation(new ClassPathResource("hibernate.cfg.xml"));
 
@@ -52,6 +53,22 @@ import com.revature.entities.TypeBenefits;
 	       transactionManager.setSessionFactory(sessionFactory);
 	       return transactionManager;
 	   }
+	   
+//	    public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
+//
+//	        authenticationMgr.jdbcAuthentication().dataSource(dataSource())
+//	          .usersByUsernameQuery(
+//	           "select email,password from user where email=? and statusenable=true")
+//	          .authoritiesByUsernameQuery(
+//	           "select email,role from user where email=? and statusenable=true");
+//
+//	        System.out.println(authenticationMgr.jdbcAuthentication().dataSource(dataSource())
+//	          .usersByUsernameQuery(
+//	           "select email,password from user where email=? and statusenable=true")
+//	          .authoritiesByUsernameQuery(
+//	           "select email,role from user where email=? and statusenable=true"));
+//	    }
+	   
 	   @Bean(name="dataSource")
 	   public DataSource getDataSource() {
 	       System.out.println("Getting data source");
@@ -62,5 +79,19 @@ import com.revature.entities.TypeBenefits;
 	       dataSource.setPassword(dbPassword);
 	       return dataSource;
 	   }
+	   
+//	   @Override
+//	     protected void configure(HttpSecurity http) throws Exception {
+//	    http
+//	    .csrf().disable()
+//	    .authorizeRequests().antMatchers("/login").permitAll()
+//	    .anyRequest().authenticated()
+//	    .and()
+//	    .formLogin().loginPage("/login").permitAll()
+//	    .and()
+//	    .authorizeRequests().antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN","ROLE_USER").anyRequest().permitAll()
+//	    .and()
+//	    .authorizeRequests().antMatchers("/user/**").hasAnyRole("ROLE_USER").anyRequest().permitAll();
+
 	}
 
