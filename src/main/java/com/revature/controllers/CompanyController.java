@@ -1,9 +1,7 @@
 package com.revature.controllers;
 
 import java.util.Optional;
-
 import javax.inject.Inject;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,46 +16,50 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.revature.entities.TypeBenefits;
-import com.revature.services.TypeBenefitsService;
 
+import com.revature.entities.Company;
+import com.revature.services.CompanyService;
 
 @RestController
-@RequestMapping("/TypeBenefits")
-public class TypeBenefitsController {
+@RequestMapping("Company")
+public class CompanyController {
 	
-private TypeBenefitsService typeBenefitsService;
-	
-	@Inject
-	public TypeBenefitsController(TypeBenefitsService typeBenefitsService) {
-		this.typeBenefitsService = typeBenefitsService;
-	}
-	
+	  private CompanyService companyService;
+	    
+	    @Inject
+	    public CompanyController(CompanyService companyService) {
+	        this.companyService = companyService;
+	    }//end class
+	    
+	    
 	@GetMapping("/{id}")
-	public TypeBenefits getById(@PathVariable int id) {
-		return Optional.ofNullable(this.typeBenefitsService.getById(id))
-				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
-	}
-	
+	public Company getById(@PathVariable int id) {
+	    return Optional.ofNullable(this.companyService.getById(id))
+	            .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
+	}// method getById
+
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
-	public TypeBenefits createdTypeBenefits(@RequestBody TypeBenefits typeBenefits) {
-		return this.typeBenefitsService.create(typeBenefits);
-	}
-	
+	public Company createdCompany( Company company) {
+	    return this.companyService.create(company);
+	}//end method create
+
 	@PutMapping("")
-	public TypeBenefits updateTypeBenefits(@RequestBody TypeBenefits typeBenefits) {
-		return this.typeBenefitsService.update(typeBenefits);
-	}
-	
+	public Company updateCompany(@RequestBody Company company) {
+	    return this.companyService.update(company);
+	}//end method update
+
 	@DeleteMapping("/{id}")
-	public TypeBenefits deleteTypeBenefits(@PathVariable int id) {
-		return this.typeBenefitsService.deleteById(id);
-	}
-	
+	public Company deleteCompany(@PathVariable int id) {
+	    return this.companyService.deleteById(id);
+	}// end method delete
+	    
 	@ExceptionHandler(HttpClientErrorException.class)
 	public ResponseEntity<String> handleClientError(HttpClientErrorException e){
-		return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
+	    return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
+
 	}
 
-}
+	}//end class CompanyController
+
+

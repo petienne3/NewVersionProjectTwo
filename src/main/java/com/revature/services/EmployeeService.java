@@ -28,7 +28,7 @@ public class EmployeeService {
 	}
 	
 	public Employee update(Employee employee) {
-		return this.employeeRepository.create(employee);
+		return this.employeeRepository.update(employee);
 	}
 	
 	public Employee deleteById(int id) {

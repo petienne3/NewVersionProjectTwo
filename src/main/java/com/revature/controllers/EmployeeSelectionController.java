@@ -18,46 +18,45 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.revature.entities.TypeBenefits;
-import com.revature.services.TypeBenefitsService;
+import com.revature.entities.EmployeeSelection;
+import com.revature.services.EmployeeSelectionService;
 
 
 @RestController
-@RequestMapping("/TypeBenefits")
-public class TypeBenefitsController {
-	
-private TypeBenefitsService typeBenefitsService;
+@RequestMapping("EmployeeSelection")
+public class EmployeeSelectionController {
+
+	private EmployeeSelectionService employeeSelectionService;
 	
 	@Inject
-	public TypeBenefitsController(TypeBenefitsService typeBenefitsService) {
-		this.typeBenefitsService = typeBenefitsService;
+	public EmployeeSelectionController(EmployeeSelectionService employeeSelectionService) {
+		this.employeeSelectionService = employeeSelectionService;
 	}
 	
 	@GetMapping("/{id}")
-	public TypeBenefits getById(@PathVariable int id) {
-		return Optional.ofNullable(this.typeBenefitsService.getById(id))
+	public EmployeeSelection getById(@PathVariable int id) {
+		return Optional.ofNullable(this.employeeSelectionService.getById(id))
 				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
 	
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
-	public TypeBenefits createdTypeBenefits(@RequestBody TypeBenefits typeBenefits) {
-		return this.typeBenefitsService.create(typeBenefits);
+	public EmployeeSelection createdEmployeeSelection(@RequestBody EmployeeSelection employeeSelection) {
+		return this.employeeSelectionService.create(employeeSelection);
 	}
 	
 	@PutMapping("")
-	public TypeBenefits updateTypeBenefits(@RequestBody TypeBenefits typeBenefits) {
-		return this.typeBenefitsService.update(typeBenefits);
+	public EmployeeSelection updateEmployeeSelection(@RequestBody EmployeeSelection employeeSelection) {
+		return this.employeeSelectionService.update(employeeSelection);
 	}
 	
 	@DeleteMapping("/{id}")
-	public TypeBenefits deleteTypeBenefits(@PathVariable int id) {
-		return this.typeBenefitsService.deleteById(id);
+	public EmployeeSelection deleteEmployeeSelection(@PathVariable int id) {
+		return this.employeeSelectionService.deleteById(id);
 	}
 	
 	@ExceptionHandler(HttpClientErrorException.class)
 	public ResponseEntity<String> handleClientError(HttpClientErrorException e){
 		return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
 	}
-
 }

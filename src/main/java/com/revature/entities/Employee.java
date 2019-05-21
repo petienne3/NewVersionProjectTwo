@@ -19,7 +19,7 @@ public class Employee {
 	private int employeeId;
 	
 	@Column(nullable = false, length = 30)
-	private int employeeEmail;
+	private String employeeEmail;
 	
 	private String employeePassword;
 	
@@ -41,11 +41,11 @@ public class Employee {
 		this.employeeId = employeeId;
 	}
 
-	public int getEmployeeEmail() {
+	public String getEmployeeEmail() {
 		return employeeEmail;
 	}
 
-	public void setEmployeeEmail(int employeeEmail) {
+	public void setEmployeeEmail(String employeeEmail) {
 		this.employeeEmail = employeeEmail;
 	}
 
@@ -86,7 +86,7 @@ public class Employee {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((company == null) ? 0 : company.hashCode());
-		result = prime * result + employeeEmail;
+		result = prime * result + ((employeeEmail == null) ? 0 : employeeEmail.hashCode());
 		result = prime * result + ((employeeFirstName == null) ? 0 : employeeFirstName.hashCode());
 		result = prime * result + employeeId;
 		result = prime * result + ((employeeLastName == null) ? 0 : employeeLastName.hashCode());
@@ -108,7 +108,10 @@ public class Employee {
 				return false;
 		} else if (!company.equals(other.company))
 			return false;
-		if (employeeEmail != other.employeeEmail)
+		if (employeeEmail == null) {
+			if (other.employeeEmail != null)
+				return false;
+		} else if (!employeeEmail.equals(other.employeeEmail))
 			return false;
 		if (employeeFirstName == null) {
 			if (other.employeeFirstName != null)
@@ -137,7 +140,7 @@ public class Employee {
 				+ employeeLastName + ", company=" + company + "]";
 	}
 
-	public Employee(int employeeId, int employeeEmail, String employeePassword, String employeeFirstName,
+	public Employee(int employeeId, String employeeEmail, String employeePassword, String employeeFirstName,
 			String employeeLastName, Company company) {
 		super();
 		this.employeeId = employeeId;
@@ -153,6 +156,5 @@ public class Employee {
 		// TODO Auto-generated constructor stub
 	}
 
-	
 	
 }
