@@ -15,98 +15,111 @@ import javax.persistence.OneToMany;
 @Entity
 public class Providers {
 	
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
-	@Column(name = "provider_Id")
 	private int providerId;
+	
+	private String providerName;
 	
 	private String description;
 	
-	@Column(nullable = false)
-	private String Name;
-	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "companyId")
-	public List<Company> company;
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "BenefitId")
-	public List<BenefitPlan>benefitPlan;
-	
 	private int status;
 	
-	private double cost;
+	private int cost;
+	
+	private int benefitId;
 
+	/**
+	 * @return the providerId
+	 */
 	public int getProviderId() {
 		return providerId;
 	}
 
+	/**
+	 * @param providerId the providerId to set
+	 */
 	public void setProviderId(int providerId) {
 		this.providerId = providerId;
 	}
 
+	/**
+	 * @return the providerName
+	 */
+	public String getProviderName() {
+		return providerName;
+	}
+
+	/**
+	 * @param providerName the providerName to set
+	 */
+	public void setProviderName(String providerName) {
+		this.providerName = providerName;
+	}
+
+	/**
+	 * @return the description
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * @param description the description to set
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	public String getName() {
-		return Name;
-	}
-
-	public void setName(String name) {
-		Name = name;
-	}
-
-	public List<Company> getCompany() {
-		return company;
-	}
-
-	public void setCompany(List<Company> company) {
-		this.company = company;
-	}
-
-	public List<BenefitPlan> getBenefitPlan() {
-		return benefitPlan;
-	}
-
-	public void setBenefitPlan(List<BenefitPlan> benefitPlan) {
-		this.benefitPlan = benefitPlan;
-	}
-
+	/**
+	 * @return the status
+	 */
 	public int getStatus() {
 		return status;
 	}
 
+	/**
+	 * @param status the status to set
+	 */
 	public void setStatus(int status) {
 		this.status = status;
 	}
 
-	public double getCost() {
+	/**
+	 * @return the cost
+	 */
+	public int getCost() {
 		return cost;
 	}
 
-	public void setCost(double cost) {
+	/**
+	 * @param cost the cost to set
+	 */
+	public void setCost(int cost) {
 		this.cost = cost;
+	}
+
+	/**
+	 * @return the benefitId
+	 */
+	public int getBenefitId() {
+		return benefitId;
+	}
+
+	/**
+	 * @param benefitId the benefitId to set
+	 */
+	public void setBenefitId(int benefitId) {
+		this.benefitId = benefitId;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Name == null) ? 0 : Name.hashCode());
-		result = prime * result + ((benefitPlan == null) ? 0 : benefitPlan.hashCode());
-		result = prime * result + ((company == null) ? 0 : company.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(cost);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + benefitId;
+		result = prime * result + cost;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + providerId;
+		result = prime * result + ((providerName == null) ? 0 : providerName.hashCode());
 		result = prime * result + status;
 		return result;
 	}
@@ -120,22 +133,9 @@ public class Providers {
 		if (getClass() != obj.getClass())
 			return false;
 		Providers other = (Providers) obj;
-		if (Name == null) {
-			if (other.Name != null)
-				return false;
-		} else if (!Name.equals(other.Name))
+		if (benefitId != other.benefitId)
 			return false;
-		if (benefitPlan == null) {
-			if (other.benefitPlan != null)
-				return false;
-		} else if (!benefitPlan.equals(other.benefitPlan))
-			return false;
-		if (company == null) {
-			if (other.company != null)
-				return false;
-		} else if (!company.equals(other.company))
-			return false;
-		if (Double.doubleToLongBits(cost) != Double.doubleToLongBits(other.cost))
+		if (cost != other.cost)
 			return false;
 		if (description == null) {
 			if (other.description != null)
@@ -144,6 +144,11 @@ public class Providers {
 			return false;
 		if (providerId != other.providerId)
 			return false;
+		if (providerName == null) {
+			if (other.providerName != null)
+				return false;
+		} else if (!providerName.equals(other.providerName))
+			return false;
 		if (status != other.status)
 			return false;
 		return true;
@@ -151,27 +156,16 @@ public class Providers {
 
 	@Override
 	public String toString() {
-		return "Providers [providerId=" + providerId + ", description=" + description + ", Name=" + Name + ", company="
-				+ company + ", benefitPlan=" + benefitPlan + ", status=" + status + ", cost=" + cost + "]";
+		return "Providers [providerId=" + providerId + ", providerName=" + providerName + ", description=" + description
+				+ ", status=" + status + ", cost=" + cost + ", benefitId=" + benefitId + "]";
 	}
-
-	public Providers(int providerId, String description, String name, List<Company> company,
-			List<BenefitPlan> benefitPlan, int status, double cost) {
-		super();
-		this.providerId = providerId;
-		this.description = description;
-		Name = name;
-		this.company = company;
-		this.benefitPlan = benefitPlan;
-		this.status = status;
-		this.cost = cost;
-	}
-
-	public Providers() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
+	
+	
+	
+	
+	
 	
 
+	
+	
 }
