@@ -23,7 +23,7 @@ import com.revature.services.BenefitPlanService;
 
 
 @RestController
-@RequestMapping("BenefitPlan")
+@RequestMapping("/BenefitPlan")
 public class BenefitPlanController {
 	
 	private BenefitPlanService benefitPlanService;

@@ -23,7 +23,7 @@ import com.revature.services.EmployeeSelectionService;
 
 
 @RestController
-@RequestMapping("EmployeeSelection")
+@RequestMapping("/EmployeeSelection")
 public class EmployeeSelectionController {
 
 	private EmployeeSelectionService employeeSelectionService;

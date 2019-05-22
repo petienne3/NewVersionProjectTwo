@@ -1,5 +1,7 @@
 package com.revature.repositories;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.hibernate.Session;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.entities.Company;
+import com.revature.entities.Credentials;
 
 @Repository
 public class CompanyRepository {
@@ -23,6 +26,22 @@ SessionFactory sf;
     this.sf = sf;    
         
     }
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Company login(Credentials credentials) {
+    	Session session = sf.getCurrentSession();
+    	List<Company> companyList = session.createQuery("Select c from Company c where c.companyemail = :companyemail")
+    		.setParameter("companyemail", credentials.getUserEmail()).list();
+    	Company company = companyList.get(0);
+    	
+    	System.out.println("company:" +company);
+    	
+    	if(company.getPassword().equals(credentials.getPassword())) {
+    		return company;
+    	}else {
+    		return null;
+    	}
+    }
+    
     
     @Transactional(propagation = Propagation.REQUIRED)
     public Company getById(int id) {
@@ -56,6 +75,7 @@ SessionFactory sf;
         return company;
     }// end method deleteById
     
+
     
 }//end class CompanyRepostory
 

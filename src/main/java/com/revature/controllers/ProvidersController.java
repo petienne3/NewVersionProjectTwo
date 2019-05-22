@@ -22,7 +22,7 @@ import com.revature.entities.Providers;
 import com.revature.services.ProvidersService;
 
 @RestController
-@RequestMapping("Providers")
+@RequestMapping("/Providers")
 public class ProvidersController {
 	
 	private ProvidersService providersService;
