@@ -1,5 +1,7 @@
 package com.revature.controllers;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.Optional;
 import javax.inject.Inject;
 import org.springframework.http.HttpStatus;
@@ -21,7 +23,7 @@ import com.revature.entities.Company;
 import com.revature.services.CompanyService;
 
 @RestController
-@RequestMapping("Company")
+@RequestMapping("/Company")
 public class CompanyController {
 	
 	  private CompanyService companyService;
@@ -33,14 +35,20 @@ public class CompanyController {
 	    
 	    
 	@GetMapping("/{id}")
-	public Company getById(@PathVariable int id) {
-	    return Optional.ofNullable(this.companyService.getById(id))
+	public Company getById(@PathVariable int id) throws Throwable {
+		
+	    Company company = Optional.ofNullable(this.companyService.getById(id))
 	            .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
+	    
+	    String cache = company.getCompanyId() +" " + company.getCompanyname();
+	    FileOutputStream fos = new FileOutputStream (cache);
+	    
+	    return company;
 	}// method getById
 
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Company createdCompany( Company company) {
+	public Company createdCompany(@RequestBody Company company) {
 	    return this.companyService.create(company);
 	}//end method create
 

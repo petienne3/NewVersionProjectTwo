@@ -19,10 +19,9 @@ public class Company {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int companyId;
 	
-	@Column(nullable=false, length = 30)
-	private String companyEmail;
+	private String companyemail;
 	
-	private String companyName;
+	private String companyname;
 	
 	private String password;
 	
@@ -30,9 +29,11 @@ public class Company {
 	@JoinColumn(name= "employeeId")
 	public List<Employee> employee;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name="providerId")
-	public List<Providers> provider;
+//	@ManyToMany(fetch = FetchType.LAZY)
+//	@JoinColumn(name="providerId")
+//	public List<Providers> provider;
+	
+	
 
 	public int getCompanyId() {
 		return companyId;
@@ -42,20 +43,20 @@ public class Company {
 		this.companyId = companyId;
 	}
 
-	public String getCompanyEmail() {
-		return companyEmail;
+	public String getCompanyemail() {
+		return companyemail;
 	}
 
-	public void setCompanyEmail(String companyEmail) {
-		this.companyEmail = companyEmail;
+	public void setCompanyemail(String companyemail) {
+		this.companyemail = companyemail;
 	}
 
-	public String getCompanyName() {
-		return companyName;
+	public String getCompanyname() {
+		return companyname;
 	}
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
 	}
 
 	public String getPassword() {
@@ -74,24 +75,15 @@ public class Company {
 		this.employee = employee;
 	}
 
-	public List<Providers> getProvider() {
-		return provider;
-	}
-
-	public void setProvider(List<Providers> provider) {
-		this.provider = provider;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((companyEmail == null) ? 0 : companyEmail.hashCode());
 		result = prime * result + companyId;
-		result = prime * result + ((companyName == null) ? 0 : companyName.hashCode());
+		result = prime * result + ((companyemail == null) ? 0 : companyemail.hashCode());
+		result = prime * result + ((companyname == null) ? 0 : companyname.hashCode());
 		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((provider == null) ? 0 : provider.hashCode());
 		return result;
 	}
 
@@ -104,17 +96,17 @@ public class Company {
 		if (getClass() != obj.getClass())
 			return false;
 		Company other = (Company) obj;
-		if (companyEmail == null) {
-			if (other.companyEmail != null)
-				return false;
-		} else if (!companyEmail.equals(other.companyEmail))
-			return false;
 		if (companyId != other.companyId)
 			return false;
-		if (companyName == null) {
-			if (other.companyName != null)
+		if (companyemail == null) {
+			if (other.companyemail != null)
 				return false;
-		} else if (!companyName.equals(other.companyName))
+		} else if (!companyemail.equals(other.companyemail))
+			return false;
+		if (companyname == null) {
+			if (other.companyname != null)
+				return false;
+		} else if (!companyname.equals(other.companyname))
 			return false;
 		if (employee == null) {
 			if (other.employee != null)
@@ -126,36 +118,31 @@ public class Company {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (provider == null) {
-			if (other.provider != null)
-				return false;
-		} else if (!provider.equals(other.provider))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Company [companyId=" + companyId + ", companyEmail=" + companyEmail + ", companyName=" + companyName
-				+ ", password=" + password + ", employee=" + employee + ", provider=" + provider + "]";
+		return "Company [companyId=" + companyId + ", companyemail=" + companyemail + ", companyname=" + companyname
+				+ ", password=" + password + ", employee=" + employee + "]";
 	}
 
-	public Company(int companyId, String companyEmail, String companyName, String password, List<Employee> employee,
-			List<Providers> provider) {
+	public Company(int companyId, String companyemail, String companyname, String password, List<Employee> employee) {
 		super();
 		this.companyId = companyId;
-		this.companyEmail = companyEmail;
-		this.companyName = companyName;
+		this.companyemail = companyemail;
+		this.companyname = companyname;
 		this.password = password;
 		this.employee = employee;
-		this.provider = provider;
 	}
 
 	public Company() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	
 
+	
 }
