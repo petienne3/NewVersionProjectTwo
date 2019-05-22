@@ -18,47 +18,45 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.revature.entities.BenefitPlan;
-import com.revature.services.BenefitPlanService;
+import com.revature.entities.EmployeeSelection;
+import com.revature.services.EmployeeSelectionService;
 
 
 @RestController
-@RequestMapping("BenefitPlan")
-public class BenefitPlanController {
-	
-	private BenefitPlanService benefitPlanService;
+@RequestMapping("EmployeeSelection")
+public class EmployeeSelectionController {
+
+	private EmployeeSelectionService employeeSelectionService;
 	
 	@Inject
-	public BenefitPlanController(BenefitPlanService benefitPlanService) {
-		super();
-		this.benefitPlanService = benefitPlanService;
+	public EmployeeSelectionController(EmployeeSelectionService employeeSelectionService) {
+		this.employeeSelectionService = employeeSelectionService;
 	}
 	
 	@GetMapping("/{id}")
-	public BenefitPlan getById(@PathVariable int id) {
-		return Optional.ofNullable(this.benefitPlanService.getById(id))
+	public EmployeeSelection getById(@PathVariable int id) {
+		return Optional.ofNullable(this.employeeSelectionService.getById(id))
 				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
 	
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
-	public BenefitPlan createdBenefitPlan(@RequestBody BenefitPlan benefitPlan) {
-		return this.benefitPlanService.create(benefitPlan);
+	public EmployeeSelection createdEmployeeSelection(@RequestBody EmployeeSelection employeeSelection) {
+		return this.employeeSelectionService.create(employeeSelection);
 	}
 	
 	@PutMapping("")
-	public BenefitPlan updateBenefitPlan(@RequestBody BenefitPlan benefitPlan) {
-		return this.benefitPlanService.update(benefitPlan);
+	public EmployeeSelection updateEmployeeSelection(@RequestBody EmployeeSelection employeeSelection) {
+		return this.employeeSelectionService.update(employeeSelection);
 	}
 	
 	@DeleteMapping("/{id}")
-	public BenefitPlan deleteBenefitPlan(@PathVariable int id) {
-		return this.benefitPlanService.deleteById(id);
+	public EmployeeSelection deleteEmployeeSelection(@PathVariable int id) {
+		return this.employeeSelectionService.deleteById(id);
 	}
 	
 	@ExceptionHandler(HttpClientErrorException.class)
 	public ResponseEntity<String> handleClientError(HttpClientErrorException e){
 		return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
 	}
-
 }

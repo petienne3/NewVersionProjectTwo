@@ -18,47 +18,44 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.revature.entities.BenefitPlan;
-import com.revature.services.BenefitPlanService;
-
+import com.revature.entities.Employee;
+import com.revature.services.EmployeeService;
 
 @RestController
-@RequestMapping("BenefitPlan")
-public class BenefitPlanController {
+@RequestMapping("/Employee")
+public class EmployeeController {
 	
-	private BenefitPlanService benefitPlanService;
+	private EmployeeService employeeService;
 	
 	@Inject
-	public BenefitPlanController(BenefitPlanService benefitPlanService) {
-		super();
-		this.benefitPlanService = benefitPlanService;
+	public EmployeeController(EmployeeService employeeService) {
+		this.employeeService = employeeService;
 	}
 	
 	@GetMapping("/{id}")
-	public BenefitPlan getById(@PathVariable int id) {
-		return Optional.ofNullable(this.benefitPlanService.getById(id))
+	public Employee getById(@PathVariable int id) {
+		return Optional.ofNullable(this.employeeService.getById(id))
 				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
 	
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
-	public BenefitPlan createdBenefitPlan(@RequestBody BenefitPlan benefitPlan) {
-		return this.benefitPlanService.create(benefitPlan);
+	public Employee createdemployee(@RequestBody Employee employee) {
+		return this.employeeService.create(employee);
 	}
 	
 	@PutMapping("")
-	public BenefitPlan updateBenefitPlan(@RequestBody BenefitPlan benefitPlan) {
-		return this.benefitPlanService.update(benefitPlan);
+	public Employee updateEmployee(@RequestBody Employee employee) {
+		return this.employeeService.update(employee);
 	}
 	
 	@DeleteMapping("/{id}")
-	public BenefitPlan deleteBenefitPlan(@PathVariable int id) {
-		return this.benefitPlanService.deleteById(id);
+	public Employee deleteEmployee(@PathVariable int id) {
+		return this.employeeService.deleteById(id);
 	}
 	
 	@ExceptionHandler(HttpClientErrorException.class)
 	public ResponseEntity<String> handleClientError(HttpClientErrorException e){
 		return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
 	}
-
 }

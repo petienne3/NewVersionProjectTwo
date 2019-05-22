@@ -1,5 +1,7 @@
 package com.revature.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,18 +19,21 @@ public class Company {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int companyId;
 	
-	@Column(nullable=false, length = 30)
-	private String companyEmail;
+	private String companyemail;
 	
-	private String companyName;
+	private String companyname;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	private String password;
+	
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name= "employeeId")
-	public Employee employee;
+	public List<Employee> employee;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name="providerId")
-	public Providers provider;
+//	@ManyToMany(fetch = FetchType.LAZY)
+//	@JoinColumn(name="providerId")
+//	public List<Providers> provider;
+	
+	
 
 	public int getCompanyId() {
 		return companyId;
@@ -38,47 +43,47 @@ public class Company {
 		this.companyId = companyId;
 	}
 
-	public String getCompanyEmail() {
-		return companyEmail;
+	public String getCompanyemail() {
+		return companyemail;
 	}
 
-	public void setCompanyEmail(String companyEmail) {
-		this.companyEmail = companyEmail;
+	public void setCompanyemail(String companyemail) {
+		this.companyemail = companyemail;
 	}
 
-	public String getCompanyName() {
-		return companyName;
+	public String getCompanyname() {
+		return companyname;
 	}
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
 	}
 
-	public Employee getEmployee() {
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public List<Employee> getEmployee() {
 		return employee;
 	}
 
-	public void setEmployee(Employee employee) {
+	public void setEmployee(List<Employee> employee) {
 		this.employee = employee;
-	}
-
-	public Providers getProvider() {
-		return provider;
-	}
-
-	public void setProvider(Providers provider) {
-		this.provider = provider;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((companyEmail == null) ? 0 : companyEmail.hashCode());
 		result = prime * result + companyId;
-		result = prime * result + ((companyName == null) ? 0 : companyName.hashCode());
+		result = prime * result + ((companyemail == null) ? 0 : companyemail.hashCode());
+		result = prime * result + ((companyname == null) ? 0 : companyname.hashCode());
 		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
-		result = prime * result + ((provider == null) ? 0 : provider.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		return result;
 	}
 
@@ -91,44 +96,44 @@ public class Company {
 		if (getClass() != obj.getClass())
 			return false;
 		Company other = (Company) obj;
-		if (companyEmail == null) {
-			if (other.companyEmail != null)
-				return false;
-		} else if (!companyEmail.equals(other.companyEmail))
-			return false;
 		if (companyId != other.companyId)
 			return false;
-		if (companyName == null) {
-			if (other.companyName != null)
+		if (companyemail == null) {
+			if (other.companyemail != null)
 				return false;
-		} else if (!companyName.equals(other.companyName))
+		} else if (!companyemail.equals(other.companyemail))
+			return false;
+		if (companyname == null) {
+			if (other.companyname != null)
+				return false;
+		} else if (!companyname.equals(other.companyname))
 			return false;
 		if (employee == null) {
 			if (other.employee != null)
 				return false;
 		} else if (!employee.equals(other.employee))
 			return false;
-		if (provider == null) {
-			if (other.provider != null)
+		if (password == null) {
+			if (other.password != null)
 				return false;
-		} else if (!provider.equals(other.provider))
+		} else if (!password.equals(other.password))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Company [companyId=" + companyId + ", companyEmail=" + companyEmail + ", companyName=" + companyName
-				+ ", employee=" + employee + ", provider=" + provider + "]";
+		return "Company [companyId=" + companyId + ", companyemail=" + companyemail + ", companyname=" + companyname
+				+ ", password=" + password + ", employee=" + employee + "]";
 	}
 
-	public Company(int companyId, String companyEmail, String companyName, Employee employee, Providers provider) {
+	public Company(int companyId, String companyemail, String companyname, String password, List<Employee> employee) {
 		super();
 		this.companyId = companyId;
-		this.companyEmail = companyEmail;
-		this.companyName = companyName;
+		this.companyemail = companyemail;
+		this.companyname = companyname;
+		this.password = password;
 		this.employee = employee;
-		this.provider = provider;
 	}
 
 	public Company() {
@@ -136,6 +141,8 @@ public class Company {
 		// TODO Auto-generated constructor stub
 	}
 	
+
 	
 
+	
 }

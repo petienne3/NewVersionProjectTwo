@@ -18,46 +18,44 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.revature.entities.BenefitPlan;
-import com.revature.services.BenefitPlanService;
-
+import com.revature.entities.Providers;
+import com.revature.services.ProvidersService;
 
 @RestController
-@RequestMapping("BenefitPlan")
-public class BenefitPlanController {
+@RequestMapping("Providers")
+public class ProvidersController {
 	
-	private BenefitPlanService benefitPlanService;
+	private ProvidersService providersService;
 	
 	@Inject
-	public BenefitPlanController(BenefitPlanService benefitPlanService) {
-		super();
-		this.benefitPlanService = benefitPlanService;
+	public ProvidersController(ProvidersService providersService) {
+		this.providersService = providersService;
 	}
 	
 	@GetMapping("/{id}")
-	public BenefitPlan getById(@PathVariable int id) {
-		return Optional.ofNullable(this.benefitPlanService.getById(id))
-				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
+	public Providers getById(@PathVariable int id) {
+		return Optional.ofNullable(this.providersService.getById(id))
+			.orElseThrow(()-> new HttpClientErrorException(HttpStatus.NOT_FOUND));	
 	}
 	
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
-	public BenefitPlan createdBenefitPlan(@RequestBody BenefitPlan benefitPlan) {
-		return this.benefitPlanService.create(benefitPlan);
+	public Providers createdProviders(@RequestBody Providers providers) {
+		return this.providersService.create(providers);
 	}
 	
 	@PutMapping("")
-	public BenefitPlan updateBenefitPlan(@RequestBody BenefitPlan benefitPlan) {
-		return this.benefitPlanService.update(benefitPlan);
+	public Providers updateProviders(@RequestBody Providers providers) {
+		return this.providersService.update(providers);
 	}
 	
 	@DeleteMapping("/{id}")
-	public BenefitPlan deleteBenefitPlan(@PathVariable int id) {
-		return this.benefitPlanService.deleteById(id);
+	public Providers deleteProviders(@PathVariable int id) {
+		return this.providersService.deleteById(id);
 	}
 	
 	@ExceptionHandler(HttpClientErrorException.class)
-	public ResponseEntity<String> handleClientError(HttpClientErrorException e){
+	public ResponseEntity<String> handleCientError(HttpClientErrorException e){
 		return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
 	}
 
