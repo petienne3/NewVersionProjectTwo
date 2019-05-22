@@ -52,7 +52,7 @@ public class CompanyController {
 	    
 	    return company;
 	}// method getById
-
+//Nothing put g thing 
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Company createdCompany(@RequestBody Company company) {
