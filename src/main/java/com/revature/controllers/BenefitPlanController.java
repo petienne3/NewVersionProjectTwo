@@ -30,6 +30,7 @@ public class BenefitPlanController {
 	
 	@Inject
 	public BenefitPlanController(BenefitPlanService benefitPlanService) {
+		super();
 		this.benefitPlanService = benefitPlanService;
 	}
 	

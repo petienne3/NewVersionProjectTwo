@@ -20,7 +20,7 @@ public class BenefitPlan {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int benefitId;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "providerId")
 	public List<Providers>provider;
 	

@@ -18,6 +18,8 @@ public class Providers {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Column(name = "provider_Id")
 	private int providerId;
 	
 	private String description;
