@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
-Built-By: sarmand19
-Build-Jdk: 12
 Implementation-Title: ProjectTwoa_V1
 Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: sarmand19
 Implementation-Vendor-Id: ProjectTwo
-Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
- -starter-parent/ProjectTwoa_V1
+Build-Jdk: 1.8.0_191
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/ProjectTwoa_V1
 Created-By: Maven Integration for Eclipse
 
