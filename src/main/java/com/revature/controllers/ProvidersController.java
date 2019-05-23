@@ -33,9 +33,12 @@ public class ProvidersController {
 	public ProvidersController(ProvidersService providersService) {
 		this.providersService = providersService;
 	}
-	@PostMapping("/getall")
-	public List<Providers> getAll(@RequestBody Providers provider) {
-		return this.providersService.getAll(provider);
+
+	@GetMapping("/getall")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Providers> getAll() {
+		return this.providersService.getAll();
+
 	}
 	@GetMapping("/{id}")
 	public Providers getById(@PathVariable int id) {

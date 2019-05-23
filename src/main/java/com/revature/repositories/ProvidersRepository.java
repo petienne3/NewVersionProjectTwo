@@ -56,12 +56,12 @@ public class ProvidersRepository {
 		return providers;
 	}
 	@Transactional(propagation = Propagation.REQUIRED)
-    public List<Providers> getAll(Providers providers) {
+
+    	
+    public List<Providers> getAll() {
     	Session session = sf.getCurrentSession();
-    	List<Providers> providerList = session.createQuery("Select p from Provider p ",Providers.class).list();
-    	
-    	System.out.println("providers:" +providers);
-    	
+    	List<Providers> providerList = session.createQuery("from Providers",Providers.class).list();
+
     	return providerList;
     }
 }

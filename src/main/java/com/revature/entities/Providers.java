@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Providers {
 	
@@ -31,7 +33,8 @@ public class Providers {
 	@JoinColumn(name = "companyId")
 	public List<Company> company;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "BenefitId")
 	public List<BenefitPlan>benefitPlan;
 	

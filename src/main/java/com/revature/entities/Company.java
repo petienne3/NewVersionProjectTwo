@@ -31,7 +31,7 @@ public class Company {
 	
 //	@ManyToMany(fetch = FetchType.LAZY)
 //	@JoinColumn(name="providerId")
-	public List<Providers> provider;
+	public Providers provider;
 
 	public int getCompanyId() {
 		return companyId;
@@ -73,11 +73,11 @@ public class Company {
 		this.employee = employee;
 	}
 
-	public List<Providers> getProvider() {
+	public Providers getProvider() {
 		return provider;
 	}
 
-	public void setProvider(List<Providers> provider) {
+	public void setProvider(Providers provider) {
 		this.provider = provider;
 	}
 
@@ -140,7 +140,7 @@ public class Company {
 	}
 
 	public Company(int companyId, String companyemail, String companyname, String password, List<Employee> employee,
-			List<Providers> provider) {
+			Providers provider) {
 		super();
 		this.companyId = companyId;
 		this.companyemail = companyemail;
@@ -154,8 +154,8 @@ public class Company {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
+
 
 	
 

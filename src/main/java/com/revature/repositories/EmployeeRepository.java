@@ -15,6 +15,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import com.revature.entities.Credentials;
 import com.revature.entities.Employee;
 
+
 @Repository
 public class EmployeeRepository {
 	
@@ -57,6 +58,7 @@ public class EmployeeRepository {
 			
 		}
 		
+
 		@Transactional(propagation = Propagation.REQUIRED)
 		public Employee login(Credentials credentials) {
 			Session session = sf.getCurrentSession();
@@ -71,7 +73,9 @@ public class EmployeeRepository {
 					}else {
 						return null;
 					}
+		}}
+
 		
-		}
-	}
+
+	
 

@@ -63,10 +63,10 @@ SessionFactory sf;
     
     @Transactional (propagation = Propagation.REQUIRED)
     public Company update(Company company ) {
-        Session session = sf.getCurrentSession();
-        Query update = session.createQuery("update Company set provider_id = :provider_id" + "where company_id = :company_id")
-        		.setParameter("provider_id", company.setProvider());
-        session.merge(company);
+//        Session session = sf.getCurrentSession();
+//        Query update = session.createQuery("update Company set provider_id = :provider_id" + "where company_id = :company_id")
+//        		.setParameter("provider_id", company.provider.getProviderId().list());
+//        session.merge(company);
         return company;
         
     }//end method update
