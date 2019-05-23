@@ -21,7 +21,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import com.revature.entities.Company;
 import com.revature.entities.Credentials;
 import com.revature.entities.Employee;
-import com.revature.entities.EmployeeCredentials;
 import com.revature.services.EmployeeService;
 
 @RestController
@@ -37,8 +36,8 @@ public class EmployeeController {
 	
 	@PostMapping("/login")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Employee login(@RequestBody EmployeeCredentials employeeCredentials) {
-		return this.employeeService.create(employeeCredentials);
+	public Employee login(@RequestBody Credentials credentials) {
+		return this.employeeService.create(credentials);
 	}
 	
 	@GetMapping("/{id}")

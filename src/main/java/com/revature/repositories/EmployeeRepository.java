@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
+import com.revature.entities.Credentials;
 import com.revature.entities.Employee;
-import com.revature.entities.EmployeeCredentials;
 
 @Repository
 public class EmployeeRepository {
@@ -58,15 +58,15 @@ public class EmployeeRepository {
 		}
 		
 		@Transactional(propagation = Propagation.REQUIRED)
-		public Employee login(EmployeeCredentials employeeCredentials) {
+		public Employee login(Credentials credentials) {
 			Session session = sf.getCurrentSession();
 			List<Employee> employeeList = session.createQuery("Select e from Employee e where e.employeeEmail = :employeeEmail")
-					.setParameter("EmployeeEmail", employeeCredentials.getLoginEmail()).list();
+					.setParameter("EmployeeEmail", credentials.getUserEmail()).list();
 					Employee employee = employeeList.get(0);
 					
 					System.out.println("Employee:" +employee);
 					
-					if(employee.getEmployeePassword().equals(employeeCredentials.getLoginPassword())) {
+					if(employee.getEmployeePassword().equals(credentials.getPassword())) {
 						return employee;
 					}else {
 						return null;

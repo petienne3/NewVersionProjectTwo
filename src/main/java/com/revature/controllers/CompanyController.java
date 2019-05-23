@@ -51,23 +51,23 @@ public class CompanyController {
 	    FileOutputStream fos = new FileOutputStream (cache);
 	    
 	    return company;
-	}// method getById
-//Nothing put g thing 
+	}
+ 
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Company createdCompany(@RequestBody Company company) {
 	    return this.companyService.create(company);
-	}//end method create
+	}
 
-	@PutMapping("")
+	@PutMapping("/update/{id}")
 	public Company updateCompany(@RequestBody Company company) {
 	    return this.companyService.update(company);
-	}//end method update
+	}
 
 	@DeleteMapping("/{id}")
 	public Company deleteCompany(@PathVariable int id) {
 	    return this.companyService.deleteById(id);
-	}// end method delete
+	}
 	    
 	@ExceptionHandler(HttpClientErrorException.class)
 	public ResponseEntity<String> handleClientError(HttpClientErrorException e){
@@ -75,6 +75,6 @@ public class CompanyController {
 
 	}
 
-	}//end class CompanyController
+	}
 
 

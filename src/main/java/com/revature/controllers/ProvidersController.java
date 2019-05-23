@@ -34,8 +34,8 @@ public class ProvidersController {
 		this.providersService = providersService;
 	}
 	@PostMapping("/getall")
-	public List<Providers> getAll(@RequestBody Company company) {
-		return this.providersService.getAll(company);
+	public List<Providers> getAll(@RequestBody Providers provider) {
+		return this.providersService.getAll(provider);
 	}
 	@GetMapping("/{id}")
 	public Providers getById(@PathVariable int id) {

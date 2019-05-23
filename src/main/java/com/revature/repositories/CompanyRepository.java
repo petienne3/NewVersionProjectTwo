@@ -60,6 +60,8 @@ SessionFactory sf;
     @Transactional (propagation = Propagation.REQUIRED)
     public Company update(Company company ) {
         Session session = sf.getCurrentSession();
+        List<Company> companyList = session.createQuery("update Company set provider_id = :provider_id" + "where company_id = :company_id")
+        		.setParameter("provider_id", value)
         session.merge(company);
         return company;
         
