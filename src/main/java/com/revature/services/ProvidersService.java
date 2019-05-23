@@ -39,11 +39,9 @@ public class ProvidersService {
 	public Providers deleteById(int id) {
 		return this.providersRepository.deleteById(id);
 	}
-	public List<Providers> getAll(Company company) {
-	if(this.providersRepository.getAll(company)== null) {
-		throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
-	}
-		return this.providersRepository.getAll(company);
+	public List<Providers> getAll() {
+	
+		return this.providersRepository.getAll();
 	}
 
 }

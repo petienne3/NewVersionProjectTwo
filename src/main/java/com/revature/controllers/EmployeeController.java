@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
+import com.revature.entities.Company;
+import com.revature.entities.Credentials;
 import com.revature.entities.Employee;
+
 import com.revature.services.EmployeeService;
 
 @RestController
@@ -31,6 +34,8 @@ public class EmployeeController {
 	public EmployeeController(EmployeeService employeeService) {
 		this.employeeService = employeeService;
 	}
+	
+
 	
 	@GetMapping("/{id}")
 	public Employee getById(@PathVariable int id) {
