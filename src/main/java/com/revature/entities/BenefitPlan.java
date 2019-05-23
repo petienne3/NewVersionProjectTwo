@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -20,17 +21,28 @@ public class BenefitPlan {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int benefitId;
 	
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "providerId")
-	public List<Providers>provider;
+//	@OneToMany(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "providerId")
+//	public List<Providers>provider;
 	
 //	@OneToMany(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "companyId")
+//	@JoinTable(name = "Joining_Benefit_n_company"
+//	, joinColumns = { @JoinColumn (name = "company_Id")}
+//	,inverseJoinColumns = {@JoinColumn(name = "benefitId")})
 //	public Company company;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "typeId")
-	public TypeBenefits typId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn (name = "companyId")
+	public Company companies;
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn (name = "employeeSelectionId")
+	public EmployeeSelection employeeSelection;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn (name = "providerId")
+	public Providers provider;
 
 	public int getBenefitId() {
 		return benefitId;
@@ -40,20 +52,28 @@ public class BenefitPlan {
 		this.benefitId = benefitId;
 	}
 
-	public List<Providers> getProvider() {
+	public Company getCompanies() {
+		return companies;
+	}
+
+	public void setCompanies(Company companies) {
+		this.companies = companies;
+	}
+
+	public EmployeeSelection getEmployeeSelection() {
+		return employeeSelection;
+	}
+
+	public void setEmployeeSelection(EmployeeSelection employeeSelection) {
+		this.employeeSelection = employeeSelection;
+	}
+
+	public Providers getProvider() {
 		return provider;
 	}
 
-	public void setProvider(List<Providers> provider) {
+	public void setProvider(Providers provider) {
 		this.provider = provider;
-	}
-
-	public TypeBenefits getTypId() {
-		return typId;
-	}
-
-	public void setTypId(TypeBenefits typId) {
-		this.typId = typId;
 	}
 
 	@Override
@@ -61,8 +81,9 @@ public class BenefitPlan {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + benefitId;
+		result = prime * result + ((companies == null) ? 0 : companies.hashCode());
+		result = prime * result + ((employeeSelection == null) ? 0 : employeeSelection.hashCode());
 		result = prime * result + ((provider == null) ? 0 : provider.hashCode());
-		result = prime * result + ((typId == null) ? 0 : typId.hashCode());
 		return result;
 	}
 
@@ -77,29 +98,36 @@ public class BenefitPlan {
 		BenefitPlan other = (BenefitPlan) obj;
 		if (benefitId != other.benefitId)
 			return false;
+		if (companies == null) {
+			if (other.companies != null)
+				return false;
+		} else if (!companies.equals(other.companies))
+			return false;
+		if (employeeSelection == null) {
+			if (other.employeeSelection != null)
+				return false;
+		} else if (!employeeSelection.equals(other.employeeSelection))
+			return false;
 		if (provider == null) {
 			if (other.provider != null)
 				return false;
 		} else if (!provider.equals(other.provider))
-			return false;
-		if (typId == null) {
-			if (other.typId != null)
-				return false;
-		} else if (!typId.equals(other.typId))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "BenefitPlan [benefitId=" + benefitId + ", provider=" + provider + ", typId=" + typId + "]";
+		return "BenefitPlan [benefitId=" + benefitId + ", companies=" + companies + ", employeeSelection="
+				+ employeeSelection + ", provider=" + provider + "]";
 	}
 
-	public BenefitPlan(int benefitId, List<Providers> provider, TypeBenefits typId) {
+	public BenefitPlan(int benefitId, Company companies, EmployeeSelection employeeSelection, Providers provider) {
 		super();
 		this.benefitId = benefitId;
+		this.companies = companies;
+		this.employeeSelection = employeeSelection;
 		this.provider = provider;
-		this.typId = typId;
 	}
 
 	public BenefitPlan() {
@@ -107,5 +135,6 @@ public class BenefitPlan {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	
 }

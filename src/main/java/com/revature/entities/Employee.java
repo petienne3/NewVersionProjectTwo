@@ -1,5 +1,7 @@
 package com.revature.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 
@@ -18,19 +21,23 @@ public class Employee {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int employeeId;
 	
-	@Column(nullable = false, length = 30)
+	
 	private String employeeEmail;
 	
 	private String employeePassword;
 	
-	@Column(nullable = false)
+	
 	private String employeeFirstName;
 	
-	@Column(nullable = false)
+	
 	private String employeeLastName;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "companyId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "employeeSelectionId")
+	public EmployeeSelection employeeSelection;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn (name = "companyId")
 	public Company company;
 
 	public int getEmployeeId() {
@@ -73,6 +80,14 @@ public class Employee {
 		this.employeeLastName = employeeLastName;
 	}
 
+	public EmployeeSelection getEmployeeSelection() {
+		return employeeSelection;
+	}
+
+	public void setEmployeeSelection(EmployeeSelection employeeSelection) {
+		this.employeeSelection = employeeSelection;
+	}
+
 	public Company getCompany() {
 		return company;
 	}
@@ -91,6 +106,7 @@ public class Employee {
 		result = prime * result + employeeId;
 		result = prime * result + ((employeeLastName == null) ? 0 : employeeLastName.hashCode());
 		result = prime * result + ((employeePassword == null) ? 0 : employeePassword.hashCode());
+		result = prime * result + ((employeeSelection == null) ? 0 : employeeSelection.hashCode());
 		return result;
 	}
 
@@ -130,6 +146,11 @@ public class Employee {
 				return false;
 		} else if (!employeePassword.equals(other.employeePassword))
 			return false;
+		if (employeeSelection == null) {
+			if (other.employeeSelection != null)
+				return false;
+		} else if (!employeeSelection.equals(other.employeeSelection))
+			return false;
 		return true;
 	}
 
@@ -137,17 +158,18 @@ public class Employee {
 	public String toString() {
 		return "Employee [employeeId=" + employeeId + ", employeeEmail=" + employeeEmail + ", employeePassword="
 				+ employeePassword + ", employeeFirstName=" + employeeFirstName + ", employeeLastName="
-				+ employeeLastName + ", company=" + company + "]";
+				+ employeeLastName + ", employeeSelection=" + employeeSelection + ", company=" + company + "]";
 	}
 
 	public Employee(int employeeId, String employeeEmail, String employeePassword, String employeeFirstName,
-			String employeeLastName, Company company) {
+			String employeeLastName, EmployeeSelection employeeSelection, Company company) {
 		super();
 		this.employeeId = employeeId;
 		this.employeeEmail = employeeEmail;
 		this.employeePassword = employeePassword;
 		this.employeeFirstName = employeeFirstName;
 		this.employeeLastName = employeeLastName;
+		this.employeeSelection = employeeSelection;
 		this.company = company;
 	}
 
@@ -156,5 +178,6 @@ public class Employee {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	
 }

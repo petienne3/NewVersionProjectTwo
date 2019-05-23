@@ -9,7 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -26,73 +28,88 @@ public class Company {
 	private String password;
 	
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name= "employeeId")
+	@JoinColumn (name = "employeeId")
 	public List<Employee> employee;
 	
-//	@ManyToMany(fetch = FetchType.LAZY)
-//	@JoinColumn(name="providerId")
-	public Providers provider;
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn (name = "benefitId")
+	public List<BenefitPlan> benefitPlan;
+
 
 	public int getCompanyId() {
 		return companyId;
 	}
 
+
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
 	}
+
 
 	public String getCompanyemail() {
 		return companyemail;
 	}
 
+
 	public void setCompanyemail(String companyemail) {
 		this.companyemail = companyemail;
 	}
+
 
 	public String getCompanyname() {
 		return companyname;
 	}
 
+
 	public void setCompanyname(String companyname) {
 		this.companyname = companyname;
 	}
+
 
 	public String getPassword() {
 		return password;
 	}
 
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 
 	public List<Employee> getEmployee() {
 		return employee;
 	}
 
+
 	public void setEmployee(List<Employee> employee) {
 		this.employee = employee;
 	}
 
-	public Providers getProvider() {
-		return provider;
+
+	public List<BenefitPlan> getBenefitPlan() {
+		return benefitPlan;
 	}
 
-	public void setProvider(Providers provider) {
-		this.provider = provider;
+
+	public void setBenefitPlan(List<BenefitPlan> benefitPlan) {
+		this.benefitPlan = benefitPlan;
 	}
+
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((benefitPlan == null) ? 0 : benefitPlan.hashCode());
 		result = prime * result + companyId;
 		result = prime * result + ((companyemail == null) ? 0 : companyemail.hashCode());
 		result = prime * result + ((companyname == null) ? 0 : companyname.hashCode());
 		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((provider == null) ? 0 : provider.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -103,6 +120,11 @@ public class Company {
 		if (getClass() != obj.getClass())
 			return false;
 		Company other = (Company) obj;
+		if (benefitPlan == null) {
+			if (other.benefitPlan != null)
+				return false;
+		} else if (!benefitPlan.equals(other.benefitPlan))
+			return false;
 		if (companyId != other.companyId)
 			return false;
 		if (companyemail == null) {
@@ -125,39 +147,34 @@ public class Company {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (provider == null) {
-			if (other.provider != null)
-				return false;
-		} else if (!provider.equals(other.provider))
-			return false;
 		return true;
 	}
+
 
 	@Override
 	public String toString() {
 		return "Company [companyId=" + companyId + ", companyemail=" + companyemail + ", companyname=" + companyname
-				+ ", password=" + password + ", employee=" + employee + ", provider=" + provider + "]";
+				+ ", password=" + password + ", employee=" + employee + ", benefitPlan=" + benefitPlan + "]";
 	}
 
+
 	public Company(int companyId, String companyemail, String companyname, String password, List<Employee> employee,
-			Providers provider) {
+			List<BenefitPlan> benefitPlan) {
 		super();
 		this.companyId = companyId;
 		this.companyemail = companyemail;
 		this.companyname = companyname;
 		this.password = password;
 		this.employee = employee;
-		this.provider = provider;
+		this.benefitPlan = benefitPlan;
 	}
+
 
 	public Company() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-
-
-	
 
 	
 }
