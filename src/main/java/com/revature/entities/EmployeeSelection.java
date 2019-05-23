@@ -30,13 +30,17 @@ public class EmployeeSelection {
 	
 	public int Choice;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name= "typeId")
-	public List<TypeBenefits> typeBenefits;
+	public TypeBenefits typeBenefits;
 	
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn (name = "benefitPlanId")
+	@JoinColumn (name = "benefitId")
 	public List<BenefitPlan> benefitPlan;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "companyId")
+	public Company company;
 
 	public int getEmployeeSelectionId() {
 		return employeeSelectionId;
@@ -54,11 +58,11 @@ public class EmployeeSelection {
 		Choice = choice;
 	}
 
-	public List<TypeBenefits> getTypeBenefits() {
+	public TypeBenefits getTypeBenefits() {
 		return typeBenefits;
 	}
 
-	public void setTypeBenefits(List<TypeBenefits> typeBenefits) {
+	public void setTypeBenefits(TypeBenefits typeBenefits) {
 		this.typeBenefits = typeBenefits;
 	}
 
@@ -70,12 +74,21 @@ public class EmployeeSelection {
 		this.benefitPlan = benefitPlan;
 	}
 
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + Choice;
 		result = prime * result + ((benefitPlan == null) ? 0 : benefitPlan.hashCode());
+		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		result = prime * result + employeeSelectionId;
 		result = prime * result + ((typeBenefits == null) ? 0 : typeBenefits.hashCode());
 		return result;
@@ -97,6 +110,11 @@ public class EmployeeSelection {
 				return false;
 		} else if (!benefitPlan.equals(other.benefitPlan))
 			return false;
+		if (company == null) {
+			if (other.company != null)
+				return false;
+		} else if (!company.equals(other.company))
+			return false;
 		if (employeeSelectionId != other.employeeSelectionId)
 			return false;
 		if (typeBenefits == null) {
@@ -110,16 +128,17 @@ public class EmployeeSelection {
 	@Override
 	public String toString() {
 		return "EmployeeSelection [employeeSelectionId=" + employeeSelectionId + ", Choice=" + Choice
-				+ ", typeBenefits=" + typeBenefits + ", benefitPlan=" + benefitPlan + "]";
+				+ ", typeBenefits=" + typeBenefits + ", benefitPlan=" + benefitPlan + ", company=" + company + "]";
 	}
 
-	public EmployeeSelection(int employeeSelectionId, int choice, List<TypeBenefits> typeBenefits,
-			List<BenefitPlan> benefitPlan) {
+	public EmployeeSelection(int employeeSelectionId, int choice, TypeBenefits typeBenefits,
+			List<BenefitPlan> benefitPlan, Company company) {
 		super();
 		this.employeeSelectionId = employeeSelectionId;
 		Choice = choice;
 		this.typeBenefits = typeBenefits;
 		this.benefitPlan = benefitPlan;
+		this.company = company;
 	}
 
 	public EmployeeSelection() {

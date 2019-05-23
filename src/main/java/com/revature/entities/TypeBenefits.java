@@ -22,9 +22,9 @@ public class TypeBenefits {
 	@Column
 	private String categories;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn (name = "EmployeeSelectioId")
-	public EmployeeSelection employeeSelection;
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn (name = "employeeSelectionId")
+	public List<EmployeeSelection> employeeSelection;
 
 	public int getTypeId() {
 		return typeId;
@@ -42,11 +42,11 @@ public class TypeBenefits {
 		this.categories = categories;
 	}
 
-	public EmployeeSelection getEmployeeSelection() {
+	public List<EmployeeSelection> getEmployeeSelection() {
 		return employeeSelection;
 	}
 
-	public void setEmployeeSelection(EmployeeSelection employeeSelection) {
+	public void setEmployeeSelection(List<EmployeeSelection> employeeSelection) {
 		this.employeeSelection = employeeSelection;
 	}
 
@@ -90,7 +90,7 @@ public class TypeBenefits {
 				+ employeeSelection + "]";
 	}
 
-	public TypeBenefits(int typeId, String categories, EmployeeSelection employeeSelection) {
+	public TypeBenefits(int typeId, String categories, List<EmployeeSelection> employeeSelection) {
 		super();
 		this.typeId = typeId;
 		this.categories = categories;
@@ -102,6 +102,5 @@ public class TypeBenefits {
 		// TODO Auto-generated constructor stub
 	}
 
-	
 	
 }

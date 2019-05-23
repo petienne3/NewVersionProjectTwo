@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -32,9 +33,13 @@ public class Employee {
 	
 	private String employeeLastName;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "employeeSelectionId")
+//	public EmployeeSelection employeeSelection;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employeeSelectionId")
-	public EmployeeSelection employeeSelection;
+	public List<EmployeeSelection> employeeSelection;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn (name = "companyId")
@@ -80,11 +85,11 @@ public class Employee {
 		this.employeeLastName = employeeLastName;
 	}
 
-	public EmployeeSelection getEmployeeSelection() {
+	public List<EmployeeSelection> getEmployeeSelection() {
 		return employeeSelection;
 	}
 
-	public void setEmployeeSelection(EmployeeSelection employeeSelection) {
+	public void setEmployeeSelection(List<EmployeeSelection> employeeSelection) {
 		this.employeeSelection = employeeSelection;
 	}
 
@@ -162,7 +167,7 @@ public class Employee {
 	}
 
 	public Employee(int employeeId, String employeeEmail, String employeePassword, String employeeFirstName,
-			String employeeLastName, EmployeeSelection employeeSelection, Company company) {
+			String employeeLastName, List<EmployeeSelection> employeeSelection, Company company) {
 		super();
 		this.employeeId = employeeId;
 		this.employeeEmail = employeeEmail;

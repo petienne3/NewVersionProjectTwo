@@ -35,67 +35,66 @@ public class Company {
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn (name = "benefitId")
 	public List<BenefitPlan> benefitPlan;
-
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "employeeSelectionId")
+	public List<EmployeeSelection> employeeSelectionId;
 
 	public int getCompanyId() {
 		return companyId;
 	}
 
-
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
 	}
-
 
 	public String getCompanyemail() {
 		return companyemail;
 	}
 
-
 	public void setCompanyemail(String companyemail) {
 		this.companyemail = companyemail;
 	}
-
 
 	public String getCompanyname() {
 		return companyname;
 	}
 
-
 	public void setCompanyname(String companyname) {
 		this.companyname = companyname;
 	}
-
 
 	public String getPassword() {
 		return password;
 	}
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 
 	public List<Employee> getEmployee() {
 		return employee;
 	}
 
-
 	public void setEmployee(List<Employee> employee) {
 		this.employee = employee;
 	}
-
 
 	public List<BenefitPlan> getBenefitPlan() {
 		return benefitPlan;
 	}
 
-
 	public void setBenefitPlan(List<BenefitPlan> benefitPlan) {
 		this.benefitPlan = benefitPlan;
 	}
 
+	public List<EmployeeSelection> getEmployeeSelectionId() {
+		return employeeSelectionId;
+	}
+
+	public void setEmployeeSelectionId(List<EmployeeSelection> employeeSelectionId) {
+		this.employeeSelectionId = employeeSelectionId;
+	}
 
 	@Override
 	public int hashCode() {
@@ -106,10 +105,10 @@ public class Company {
 		result = prime * result + ((companyemail == null) ? 0 : companyemail.hashCode());
 		result = prime * result + ((companyname == null) ? 0 : companyname.hashCode());
 		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
+		result = prime * result + ((employeeSelectionId == null) ? 0 : employeeSelectionId.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -142,6 +141,11 @@ public class Company {
 				return false;
 		} else if (!employee.equals(other.employee))
 			return false;
+		if (employeeSelectionId == null) {
+			if (other.employeeSelectionId != null)
+				return false;
+		} else if (!employeeSelectionId.equals(other.employeeSelectionId))
+			return false;
 		if (password == null) {
 			if (other.password != null)
 				return false;
@@ -150,16 +154,15 @@ public class Company {
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Company [companyId=" + companyId + ", companyemail=" + companyemail + ", companyname=" + companyname
-				+ ", password=" + password + ", employee=" + employee + ", benefitPlan=" + benefitPlan + "]";
+				+ ", password=" + password + ", employee=" + employee + ", benefitPlan=" + benefitPlan
+				+ ", employeeSelectionId=" + employeeSelectionId + "]";
 	}
 
-
 	public Company(int companyId, String companyemail, String companyname, String password, List<Employee> employee,
-			List<BenefitPlan> benefitPlan) {
+			List<BenefitPlan> benefitPlan, List<EmployeeSelection> employeeSelectionId) {
 		super();
 		this.companyId = companyId;
 		this.companyemail = companyemail;
@@ -167,8 +170,8 @@ public class Company {
 		this.password = password;
 		this.employee = employee;
 		this.benefitPlan = benefitPlan;
+		this.employeeSelectionId = employeeSelectionId;
 	}
-
 
 	public Company() {
 		super();
@@ -176,5 +179,6 @@ public class Company {
 	}
 
 
+	
 	
 }
