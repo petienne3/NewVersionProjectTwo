@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,31 +21,20 @@ public class Providers {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "providerId")
 	private int providerId;
 	
-	@Column(name="description")
 	private String description;
 	
 	@Column(name = "name", nullable = false)
 	private String name;
 	
-//	@ManyToMany(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "companyId")
-//	public List<Company> company;
-	
-//	@ManyToMany(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "BenefitId")
-	
-	
-	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.MERGE, CascadeType.DETACH}) // @OneToMany - dictates that this relationship is one-to-many
-	@JoinColumn(name = "provider_id")
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "providers_benefitPlan", joinColumns = { @JoinColumn(name = "provider_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "benefit_id") })
 	public List<BenefitPlan>benefitPlan;
 	
-	@Column (name="status")
 	private int status;
 
-	@Column (name="cost")
 	private double cost;
 
 	/**
@@ -200,7 +190,7 @@ public class Providers {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+		
 
 }//end class providers
 
