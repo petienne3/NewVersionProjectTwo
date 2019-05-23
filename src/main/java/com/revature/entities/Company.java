@@ -31,9 +31,7 @@ public class Company {
 	
 //	@ManyToMany(fetch = FetchType.LAZY)
 //	@JoinColumn(name="providerId")
-//	public List<Providers> provider;
-	
-	
+	public List<Providers> provider;
 
 	public int getCompanyId() {
 		return companyId;
@@ -75,6 +73,14 @@ public class Company {
 		this.employee = employee;
 	}
 
+	public List<Providers> getProvider() {
+		return provider;
+	}
+
+	public void setProvider(List<Providers> provider) {
+		this.provider = provider;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -84,6 +90,7 @@ public class Company {
 		result = prime * result + ((companyname == null) ? 0 : companyname.hashCode());
 		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((provider == null) ? 0 : provider.hashCode());
 		return result;
 	}
 
@@ -118,28 +125,36 @@ public class Company {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
+		if (provider == null) {
+			if (other.provider != null)
+				return false;
+		} else if (!provider.equals(other.provider))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Company [companyId=" + companyId + ", companyemail=" + companyemail + ", companyname=" + companyname
-				+ ", password=" + password + ", employee=" + employee + "]";
+				+ ", password=" + password + ", employee=" + employee + ", provider=" + provider + "]";
 	}
 
-	public Company(int companyId, String companyemail, String companyname, String password, List<Employee> employee) {
+	public Company(int companyId, String companyemail, String companyname, String password, List<Employee> employee,
+			List<Providers> provider) {
 		super();
 		this.companyId = companyId;
 		this.companyemail = companyemail;
 		this.companyname = companyname;
 		this.password = password;
 		this.employee = employee;
+		this.provider = provider;
 	}
 
 	public Company() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 
 	

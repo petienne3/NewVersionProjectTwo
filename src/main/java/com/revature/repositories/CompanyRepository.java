@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -14,9 +15,12 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.entities.Company;
 import com.revature.entities.Credentials;
+import com.revature.entities.Providers;
 
 @Repository
 public class CompanyRepository {
+	
+	Providers provider;
 	
 SessionFactory sf;
     
@@ -60,8 +64,8 @@ SessionFactory sf;
     @Transactional (propagation = Propagation.REQUIRED)
     public Company update(Company company ) {
         Session session = sf.getCurrentSession();
-        List<Company> companyList = session.createQuery("update Company set provider_id = :provider_id" + "where company_id = :company_id")
-        		.setParameter("provider_id", value)
+        Query update = session.createQuery("update Company set provider_id = :provider_id" + "where company_id = :company_id")
+        		.setParameter("provider_id", company.setProvider());
         session.merge(company);
         return company;
         
