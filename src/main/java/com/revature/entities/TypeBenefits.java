@@ -13,7 +13,7 @@ public class TypeBenefits {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int typeId;
 	
-	@Column (nullable = false)
+	@Column
 	private String categories;
 
 	public int getTypeId() {

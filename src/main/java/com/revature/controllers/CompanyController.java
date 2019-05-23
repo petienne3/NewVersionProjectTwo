@@ -20,6 +20,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 
 import com.revature.entities.Company;
+import com.revature.entities.Credentials;
 import com.revature.services.CompanyService;
 
 @RestController
@@ -33,6 +34,12 @@ public class CompanyController {
 	        this.companyService = companyService;
 	    }//end class
 	    
+
+		@PostMapping("/login")
+		@ResponseStatus(HttpStatus.CREATED)
+		public Company login(@RequestBody Credentials credentials) {
+			return this.companyService.create(credentials);
+		}
 	    
 	@GetMapping("/{id}")
 	public Company getById(@PathVariable int id) throws Throwable {
@@ -45,7 +52,7 @@ public class CompanyController {
 	    
 	    return company;
 	}// method getById
-
+//Nothing put g thing 
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Company createdCompany(@RequestBody Company company) {

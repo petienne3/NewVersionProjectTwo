@@ -1,14 +1,13 @@
-package com.revature.services;
+ package com.revature.services;
 
-import java.util.List;
 
 import javax.inject.Inject;
 
-import org.hibernate.Session;
-import org.hibernate.type.StringType;
+
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.Company;
+import com.revature.entities.Credentials;
 import com.revature.repositories.CompanyRepository;
 
 @Service
@@ -30,17 +29,10 @@ CompanyRepository companyRepository;
  }// end getById
 
   public Company create(Company company) {
-	  Session session = null;
-	  List<Company>list = session.createQuery("FROM Company WHERE Company.companyemail= :email", Company.class)
-	  .setParameter("email", company.getCompanyemail()).list();
-	  for(Company c : list) {
-		  if(c.getCompanyemail().equals(company.getCompanyemail())) {
-			  return c;
-		  }
+	  return this.companyRepository.create(company);
 	  }
-	return company;
        
-  }// end create
+  // end create
 
   public Company update(Company company) {
        return this.companyRepository.update(company);
@@ -53,6 +45,11 @@ CompanyRepository companyRepository;
       return this.companyRepository.getById(id);
       
  }//end method deleteBId
+
+public Company create(Credentials credentials) {
+	// TODO Auto-generated method stub
+	return this.companyRepository.login(credentials);
+}
 
     
     
