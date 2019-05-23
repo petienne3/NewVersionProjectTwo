@@ -1,5 +1,7 @@
 package com.revature.repositories;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.hibernate.Session;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.entities.Employee;
+import com.revature.entities.EmployeeCredentials;
 
 @Repository
 public class EmployeeRepository {
@@ -52,6 +55,23 @@ public class EmployeeRepository {
 			session.delete(employee);
 			return employee;
 			
+		}
+		
+		@Transactional(propagation = Propagation.REQUIRED)
+		public Employee login(EmployeeCredentials employeeCredentials) {
+			Session session = sf.getCurrentSession();
+			List<Employee> employeeList = session.createQuery("Select e from Employee e where e.employeeEmail = :employeeEmail")
+					.setParameter("EmployeeEmail", employeeCredentials.getLoginEmail()).list();
+					Employee employee = employeeList.get(0);
+					
+					System.out.println("Employee:" +employee);
+					
+					if(employee.getEmployeePassword().equals(employeeCredentials.getLoginPassword())) {
+						return employee;
+					}else {
+						return null;
+					}
+		
 		}
 	}
 
