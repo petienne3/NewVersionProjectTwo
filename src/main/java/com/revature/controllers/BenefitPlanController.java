@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
+import com.revature.entities.BenefitChoice;
 import com.revature.entities.BenefitPlan;
 import com.revature.services.BenefitPlanService;
 
@@ -34,11 +35,18 @@ public class BenefitPlanController {
 		this.benefitPlanService = benefitPlanService;
 	}
 	
+	@PostMapping("/choice")
+	@ResponseStatus(HttpStatus.CREATED)
+	public BenefitPlan chooseBenefitPlan(@RequestBody BenefitChoice benefitChoice) {
+		return this.benefitPlanService.choice(benefitChoice);
+	}
+	
 	@GetMapping("/{id}")
 	public BenefitPlan getById(@PathVariable int id) {
 		return Optional.ofNullable(this.benefitPlanService.getById(id))
 				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
+	
 	
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)

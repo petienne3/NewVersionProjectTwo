@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.revature.entities.BenefitChoice;
 import com.revature.entities.BenefitPlan;
 import com.revature.repositories.BenefitPlanRepository;
 
@@ -32,6 +33,9 @@ public class BenefitPlanService {
 	
 	public BenefitPlan deleteById(int id) {
 		return this.benefitPlanRepository.deleteById(id);
+	}
+	public BenefitPlan choice(BenefitChoice benefitChoice) {
+		return this.benefitPlanRepository.choice(benefitChoice);
 	}
 
 }
