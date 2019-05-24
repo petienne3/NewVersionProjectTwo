@@ -34,8 +34,5 @@ public class BenefitPlanService {
 	public BenefitPlan deleteById(int id) {
 		return this.benefitPlanRepository.deleteById(id);
 	}
-	public BenefitPlan choice(BenefitChoice benefitChoice) {
-		return this.benefitPlanRepository.choice(benefitChoice);
-	}
 
 }

@@ -35,11 +35,11 @@ public class BenefitPlanController {
 		this.benefitPlanService = benefitPlanService;
 	}
 	
-	@PostMapping("/choice")
-	@ResponseStatus(HttpStatus.CREATED)
-	public BenefitPlan chooseBenefitPlan(@RequestBody BenefitChoice benefitChoice) {
-		return this.benefitPlanService.choice(benefitChoice);
-	}
+//	@PostMapping("/choice")
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public BenefitPlan chooseBenefitPlan(@RequestBody BenefitChoice benefitChoice) {
+//		return this.benefitPlanService.choice(benefitChoice);
+//	}
 	
 	@GetMapping("/{id}")
 	public BenefitPlan getById(@PathVariable int id) {

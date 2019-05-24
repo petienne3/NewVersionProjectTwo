@@ -33,6 +33,7 @@ public class EmployeeSelection {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name= "typeId")
 	public TypeBenefits typeBenefits;
+	
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn (name = "benefitId")

@@ -51,4 +51,10 @@ public class EmployeeSelectionRepository {
 		return employeeSelection;
 	}
 
+//	@Transactional(propagation = Propagation.REQUIRED)
+//	public EmployeeSelection choose(EmployeeSelection employeeSelection) {
+//		Session session = sf.getCurrentSession();
+//		Query queury = 
+//	}
+
 }
