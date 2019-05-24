@@ -25,9 +25,9 @@ public class Employee {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int employeeId;
 	
-	
+	@JsonIgnore
 	private String employeeEmail;
-	
+	@JsonIgnore
 	private String employeePassword;
 	
 	

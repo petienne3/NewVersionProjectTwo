@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer" })
 @Entity
@@ -28,17 +29,17 @@ public class Company {
 	private String companyname;
 	
 	private String password;
-	@JsonIgnoreProperties("company")
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn (name = "employeeId")
 	public List<Employee> employee;
 	
-	@JsonIgnoreProperties("companies")
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn (name = "benefitId")
 	public List<BenefitPlan> benefitPlan;
 	
-	@JsonIgnoreProperties("company")
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employeeSelectionId")
 	public List<EmployeeSelection> employeeSelectionId;
