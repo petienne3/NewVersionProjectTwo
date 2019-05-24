@@ -63,14 +63,14 @@ public class EmployeeRepository {
 		public Employee login(Credentials credentials) {
 			Session session = sf.getCurrentSession();
 			List<Employee> employeeList = session.createQuery("Select e from Employee e where e.employeeEmail = :employeeEmail")
-					.setParameter("EmployeeEmail", credentials.getUserEmail()).list();
+					.setParameter("employeeEmail", credentials.getUserEmail()).list();
 					Employee employee = employeeList.get(0);
 					
 					System.out.println("Employee:" +employee);
 					
 					if(employee.getEmployeePassword().equals(credentials.getPassword())) {
 						return employee;
-					}else {
+					}else{
 						return null;
 					}
 		}}

@@ -39,6 +39,7 @@ public class Employee {
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "employeeSelectionId")
 //	public EmployeeSelection employeeSelection;
+	
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employeeSelectionId")
