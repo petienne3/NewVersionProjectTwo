@@ -1,6 +1,5 @@
 package com.revature.controllers;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -36,11 +35,18 @@ public class BenefitPlanController {
 		this.benefitPlanService = benefitPlanService;
 	}
 	
+//	@PostMapping("/choice")
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public BenefitPlan chooseBenefitPlan(@RequestBody BenefitChoice benefitChoice) {
+//		return this.benefitPlanService.choice(benefitChoice);
+//	}
+	
 	@GetMapping("/{id}")
 	public BenefitPlan getById(@PathVariable int id) {
 		return Optional.ofNullable(this.benefitPlanService.getById(id))
 				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
+	
 	
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
