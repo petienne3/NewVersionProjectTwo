@@ -13,6 +13,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 
 @Entity
@@ -36,10 +39,11 @@ public class Employee {
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "employeeSelectionId")
 //	public EmployeeSelection employeeSelection;
-	
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employeeSelectionId")
 	public List<EmployeeSelection> employeeSelection;
+	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn (name = "companyId")
