@@ -36,45 +36,44 @@ public class BenefitPlan {
 	public Company companies;
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn (name = "employeeSelectionId")
-	public EmployeeSelection employeeSelection;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn (name = "employeeSelectionId")
+//	public EmployeeSelection employeeSelection;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn (name = "providerId")
 	public Providers provider;
 
+
 	public int getBenefitId() {
 		return benefitId;
 	}
+
 
 	public void setBenefitId(int benefitId) {
 		this.benefitId = benefitId;
 	}
 
+
 	public Company getCompanies() {
 		return companies;
 	}
+
 
 	public void setCompanies(Company companies) {
 		this.companies = companies;
 	}
 
-	public EmployeeSelection getEmployeeSelection() {
-		return employeeSelection;
-	}
-
-	public void setEmployeeSelection(EmployeeSelection employeeSelection) {
-		this.employeeSelection = employeeSelection;
-	}
 
 	public Providers getProvider() {
 		return provider;
 	}
 
+
 	public void setProvider(Providers provider) {
 		this.provider = provider;
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -82,10 +81,10 @@ public class BenefitPlan {
 		int result = 1;
 		result = prime * result + benefitId;
 		result = prime * result + ((companies == null) ? 0 : companies.hashCode());
-		result = prime * result + ((employeeSelection == null) ? 0 : employeeSelection.hashCode());
 		result = prime * result + ((provider == null) ? 0 : provider.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -103,11 +102,6 @@ public class BenefitPlan {
 				return false;
 		} else if (!companies.equals(other.companies))
 			return false;
-		if (employeeSelection == null) {
-			if (other.employeeSelection != null)
-				return false;
-		} else if (!employeeSelection.equals(other.employeeSelection))
-			return false;
 		if (provider == null) {
 			if (other.provider != null)
 				return false;
@@ -116,19 +110,20 @@ public class BenefitPlan {
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
-		return "BenefitPlan [benefitId=" + benefitId + ", companies=" + companies + ", employeeSelection="
-				+ employeeSelection + ", provider=" + provider + "]";
+		return "BenefitPlan [benefitId=" + benefitId + ", companies=" + companies + ", provider=" + provider + "]";
 	}
 
-	public BenefitPlan(int benefitId, Company companies, EmployeeSelection employeeSelection, Providers provider) {
+
+	public BenefitPlan(int benefitId, Company companies, Providers provider) {
 		super();
 		this.benefitId = benefitId;
 		this.companies = companies;
-		this.employeeSelection = employeeSelection;
 		this.provider = provider;
 	}
+
 
 	public BenefitPlan() {
 		super();
