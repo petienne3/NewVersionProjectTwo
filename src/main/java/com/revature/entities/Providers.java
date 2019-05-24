@@ -35,7 +35,7 @@ public class Providers {
 	
 	
 	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn (name = "benefitId")
+	
 	public List<BenefitPlan> benefitPlan;
 	
 	//	@JoinTable(name = "Joining_Providers_n_BenefitPlan"

@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.revature.entities.BenefitChoice;
 import com.revature.entities.BenefitPlan;
 
 @Repository

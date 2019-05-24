@@ -69,6 +69,7 @@ public class EmployeeRepository {
 					System.out.println("Employee:" +employee);
 					
 					if(employee.getEmployeePassword().equals(credentials.getPassword())) {
+						System.out.println(employee.toString());
 						return employee;
 					}else{
 						return null;
