@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.entities.BenefitPlan;
+import com.revature.entities.BenefitPlanDTO;
 import com.revature.services.BenefitPlanService;
 
 
@@ -42,8 +44,8 @@ public class BenefitPlanController {
 	
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
-	public BenefitPlan createdBenefitPlan(@RequestBody BenefitPlan benefitPlan) {
-		return this.benefitPlanService.create(benefitPlan);
+	public BenefitPlan createdBenefitPlan(@RequestBody BenefitPlanDTO benefitPlanDTO) {
+		return this.benefitPlanService.create(benefitPlanDTO);
 	}
 	
 	@PutMapping("")
