@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer" })
 @Entity
 public class Company {
 	
@@ -26,16 +28,17 @@ public class Company {
 	private String companyname;
 	
 	private String password;
-	
+	@JsonIgnoreProperties("company")
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn (name = "employeeId")
 	public List<Employee> employee;
 	
-	
+	@JsonIgnoreProperties("companies")
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn (name = "benefitId")
 	public List<BenefitPlan> benefitPlan;
 	
+	@JsonIgnoreProperties("company")
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employeeSelectionId")
 	public List<EmployeeSelection> employeeSelectionId;
@@ -157,8 +160,8 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Company [companyId=" + companyId + ", companyemail=" + companyemail + ", companyname=" + companyname
-				+ ", password=" + password + ", employee=" + employee + ", benefitPlan=" + benefitPlan
-				+ ", employeeSelectionId=" + employeeSelectionId + "]";
+				+ ", password=" + password + ", employee=" + employee.size() + ", benefitPlan=" + benefitPlan.size()
+				+ ", employeeSelectionId=" + employeeSelectionId.size() + "]";
 	}
 
 	public Company(int companyId, String companyemail, String companyname, String password, List<Employee> employee,
