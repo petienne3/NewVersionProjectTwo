@@ -45,6 +45,12 @@ public class EmployeeSelectionController {
 		return this.employeeSelectionService.create(employeeSelection);
 	}
 	
+//	@PostMapping("/choose")
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public EmployeeSelection EmployeeChooses(@RequestBody EmployeeSelection employeeSelection) {
+//		return this.employeeSelectionService.choose(employeeSelection);
+//	}
+	
 	@PutMapping("")
 	public EmployeeSelection updateEmployeeSelection(@RequestBody EmployeeSelection employeeSelection) {
 		return this.employeeSelectionService.update(employeeSelection);

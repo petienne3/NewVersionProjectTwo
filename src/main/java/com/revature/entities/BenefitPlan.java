@@ -36,9 +36,10 @@ public class BenefitPlan {
 	public Company companies;
 	
 	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn (name = "employeeSelectionId")
-//	public EmployeeSelection employeeSelection;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn (name = "employeeSelectionId")
+	public EmployeeSelection employeeSelection;
+	
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn (name = "providerId")

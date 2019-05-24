@@ -28,16 +28,16 @@ public class EmployeeSelection {
 //	@JoinTable(name = "employeeId")
 //	public Employee employee;
 	
-	public int Choice;
+	public int benefitId;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name= "typeId")
 	public TypeBenefits typeBenefits;
 	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn (name = "benefitId")
-	public List<BenefitPlan> benefitPlan;
+//	@JsonIgnore
+//	@OneToMany(fetch = FetchType.LAZY)
+//	@JoinColumn (name = "benefitId")
+//	public List<BenefitPlan> benefitPlan;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "companyId")
@@ -51,12 +51,12 @@ public class EmployeeSelection {
 		this.employeeSelectionId = employeeSelectionId;
 	}
 
-	public int getChoice() {
-		return Choice;
+	public int getBenefitId() {
+		return benefitId;
 	}
 
-	public void setChoice(int choice) {
-		Choice = choice;
+	public void setBenefitId(int benefitId) {
+		this.benefitId = benefitId;
 	}
 
 	public TypeBenefits getTypeBenefits() {
@@ -65,14 +65,6 @@ public class EmployeeSelection {
 
 	public void setTypeBenefits(TypeBenefits typeBenefits) {
 		this.typeBenefits = typeBenefits;
-	}
-
-	public List<BenefitPlan> getBenefitPlan() {
-		return benefitPlan;
-	}
-
-	public void setBenefitPlan(List<BenefitPlan> benefitPlan) {
-		this.benefitPlan = benefitPlan;
 	}
 
 	public Company getCompany() {
@@ -87,8 +79,7 @@ public class EmployeeSelection {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + Choice;
-		result = prime * result + ((benefitPlan == null) ? 0 : benefitPlan.hashCode());
+		result = prime * result + benefitId;
 		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		result = prime * result + employeeSelectionId;
 		result = prime * result + ((typeBenefits == null) ? 0 : typeBenefits.hashCode());
@@ -104,12 +95,7 @@ public class EmployeeSelection {
 		if (getClass() != obj.getClass())
 			return false;
 		EmployeeSelection other = (EmployeeSelection) obj;
-		if (Choice != other.Choice)
-			return false;
-		if (benefitPlan == null) {
-			if (other.benefitPlan != null)
-				return false;
-		} else if (!benefitPlan.equals(other.benefitPlan))
+		if (benefitId != other.benefitId)
 			return false;
 		if (company == null) {
 			if (other.company != null)
@@ -128,17 +114,15 @@ public class EmployeeSelection {
 
 	@Override
 	public String toString() {
-		return "EmployeeSelection [employeeSelectionId=" + employeeSelectionId + ", Choice=" + Choice
-				+ ", typeBenefits=" + typeBenefits + ", benefitPlan=" + benefitPlan + ", company=" + company + "]";
+		return "EmployeeSelection [employeeSelectionId=" + employeeSelectionId + ", benefitId=" + benefitId
+				+ ", typeBenefits=" + typeBenefits + ", company=" + company + "]";
 	}
 
-	public EmployeeSelection(int employeeSelectionId, int choice, TypeBenefits typeBenefits,
-			List<BenefitPlan> benefitPlan, Company company) {
+	public EmployeeSelection(int employeeSelectionId, int benefitId, TypeBenefits typeBenefits, Company company) {
 		super();
 		this.employeeSelectionId = employeeSelectionId;
-		Choice = choice;
+		this.benefitId = benefitId;
 		this.typeBenefits = typeBenefits;
-		this.benefitPlan = benefitPlan;
 		this.company = company;
 	}
 
@@ -146,6 +130,6 @@ public class EmployeeSelection {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	
 }
