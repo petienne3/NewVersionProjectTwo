@@ -45,11 +45,10 @@ public class Employee {
 //	@JoinColumn(name = "employeeSelectionId")
 //	public EmployeeSelection employeeSelection;
 	
-	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "employeeSelectionId")
-	public List<EmployeeSelection> employeeSelection;
-	
+//	@JsonIgnore
+//	@ManyToMany(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "employeeSelectionId")
+//	public List<EmployeeSelection> employeeSelection;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn (name = "companyId")
@@ -95,14 +94,6 @@ public class Employee {
 		this.employeeLastName = employeeLastName;
 	}
 
-	public List<EmployeeSelection> getEmployeeSelection() {
-		return employeeSelection;
-	}
-
-	public void setEmployeeSelection(List<EmployeeSelection> employeeSelection) {
-		this.employeeSelection = employeeSelection;
-	}
-
 	public Company getCompany() {
 		return company;
 	}
@@ -121,7 +112,6 @@ public class Employee {
 		result = prime * result + employeeId;
 		result = prime * result + ((employeeLastName == null) ? 0 : employeeLastName.hashCode());
 		result = prime * result + ((employeePassword == null) ? 0 : employeePassword.hashCode());
-		result = prime * result + ((employeeSelection == null) ? 0 : employeeSelection.hashCode());
 		return result;
 	}
 
@@ -161,11 +151,6 @@ public class Employee {
 				return false;
 		} else if (!employeePassword.equals(other.employeePassword))
 			return false;
-		if (employeeSelection == null) {
-			if (other.employeeSelection != null)
-				return false;
-		} else if (!employeeSelection.equals(other.employeeSelection))
-			return false;
 		return true;
 	}
 
@@ -173,18 +158,17 @@ public class Employee {
 	public String toString() {
 		return "Employee [employeeId=" + employeeId + ", employeeEmail=" + employeeEmail + ", employeePassword="
 				+ employeePassword + ", employeeFirstName=" + employeeFirstName + ", employeeLastName="
-				+ employeeLastName + ", employeeSelection=" + employeeSelection + ", company=" + company + "]";
+				+ employeeLastName + ", company=" + company + "]";
 	}
 
-	public Employee(int employeeId, String employeeEmail, String employeePassword, String employeeFirstName,
-			String employeeLastName, List<EmployeeSelection> employeeSelection, Company company) {
+	public Employee(int employeeId, @Email @NotNull String employeeEmail, String employeePassword,
+			@NotNull String employeeFirstName, @NotNull String employeeLastName, Company company) {
 		super();
 		this.employeeId = employeeId;
 		this.employeeEmail = employeeEmail;
 		this.employeePassword = employeePassword;
 		this.employeeFirstName = employeeFirstName;
 		this.employeeLastName = employeeLastName;
-		this.employeeSelection = employeeSelection;
 		this.company = company;
 	}
 
@@ -192,6 +176,8 @@ public class Employee {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
 	
 	

@@ -59,7 +59,7 @@ public class CompanyController {
 	    return this.companyService.create(company);
 	}
 
-	@PutMapping("/update/{id}")
+	@PutMapping("{id}")
 	public Company updateCompany(@RequestBody Company company) {
 	    return this.companyService.update(company);
 	}

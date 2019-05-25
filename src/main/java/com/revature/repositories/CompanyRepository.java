@@ -32,11 +32,12 @@ SessionFactory sf;
     }
     @Transactional(propagation = Propagation.REQUIRED)
     public Company login(Credentials credentials) {
-    	try(Session session = sf.getCurrentSession()){
+    	Session session = sf.getCurrentSession();
     	List<Company> companyList = session.createQuery("Select c from Company c where c.companyemail = :companyemail")
     		.setParameter("companyemail", credentials.getUserEmail()).list();
     	
 
+    	
     	Company company = companyList.get(0);
     	System.out.println("company:" +company);
 
@@ -46,7 +47,7 @@ SessionFactory sf;
     		throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
     		}
     	}
-    }
+    
     
     
     @Transactional(propagation = Propagation.REQUIRED)

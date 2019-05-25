@@ -23,10 +23,11 @@ public class TypeBenefits {
 	@Column
 	private String categories;
 	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn (name = "employeeSelectionId")
-	public List<EmployeeSelection> employeeSelection;
+//	@JsonIgnore
+//	@OneToMany(fetch = FetchType.LAZY)
+//	@JoinColumn (name = "employeeSelectionId")
+//	public List<EmployeeSelection> employeeSelection;
+
 
 	public int getTypeId() {
 		return typeId;
@@ -44,20 +45,11 @@ public class TypeBenefits {
 		this.categories = categories;
 	}
 
-	public List<EmployeeSelection> getEmployeeSelection() {
-		return employeeSelection;
-	}
-
-	public void setEmployeeSelection(List<EmployeeSelection> employeeSelection) {
-		this.employeeSelection = employeeSelection;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((categories == null) ? 0 : categories.hashCode());
-		result = prime * result + ((employeeSelection == null) ? 0 : employeeSelection.hashCode());
 		result = prime * result + typeId;
 		return result;
 	}
@@ -76,11 +68,6 @@ public class TypeBenefits {
 				return false;
 		} else if (!categories.equals(other.categories))
 			return false;
-		if (employeeSelection == null) {
-			if (other.employeeSelection != null)
-				return false;
-		} else if (!employeeSelection.equals(other.employeeSelection))
-			return false;
 		if (typeId != other.typeId)
 			return false;
 		return true;
@@ -88,21 +75,22 @@ public class TypeBenefits {
 
 	@Override
 	public String toString() {
-		return "TypeBenefits [typeId=" + typeId + ", categories=" + categories + ", employeeSelection="
-				+ employeeSelection + "]";
+		return "TypeBenefits [typeId=" + typeId + ", categories=" + categories + "]";
 	}
 
-	public TypeBenefits(int typeId, String categories, List<EmployeeSelection> employeeSelection) {
+	public TypeBenefits(int typeId, String categories) {
 		super();
 		this.typeId = typeId;
 		this.categories = categories;
-		this.employeeSelection = employeeSelection;
 	}
 
 	public TypeBenefits() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 
+	
+	
 	
 }
