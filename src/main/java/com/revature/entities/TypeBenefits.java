@@ -22,6 +22,7 @@ public class TypeBenefits {
 	
 	@Column
 	private String categories;
+	
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn (name = "employeeSelectionId")

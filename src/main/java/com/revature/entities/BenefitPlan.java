@@ -32,7 +32,7 @@ public class BenefitPlan {
 //	public Company company;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn (name = "companyId")
+	@JoinColumn (name = "companyid")
 	public Company companies;
 	
 	

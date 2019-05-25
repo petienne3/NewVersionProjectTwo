@@ -32,15 +32,19 @@ SessionFactory sf;
     }
     @Transactional(propagation = Propagation.REQUIRED)
     public Company login(Credentials credentials) {
-    	Session session = sf.getCurrentSession();
+    	try(Session session = sf.getCurrentSession()){
     	List<Company> companyList = session.createQuery("Select c from Company c where c.companyemail = :companyemail")
     		.setParameter("companyemail", credentials.getUserEmail()).list();
-    	Company company = companyList.get(0);
     	
+
+    	Company company = companyList.get(0);
+    	System.out.println("company:" +company);
+
     	if(company.getPassword().equals(credentials.getPassword())) {
     		return company;
     	}else {
-    		return null;
+    		throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+    		}
     	}
     }
     
