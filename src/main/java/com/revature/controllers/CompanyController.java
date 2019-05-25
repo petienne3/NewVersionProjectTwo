@@ -1,6 +1,5 @@
 package com.revature.controllers;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Optional;
 import javax.inject.Inject;

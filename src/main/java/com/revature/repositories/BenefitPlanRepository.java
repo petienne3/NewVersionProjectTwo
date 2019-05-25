@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -41,7 +42,10 @@ public class BenefitPlanRepository {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public BenefitPlan create(BenefitPlan benefitPlan) {
 		Session session = sf.getCurrentSession();
-		session.save(benefitPlan);
+		Query query = session.createSQLQuery("INSERT INTO benefitplan(companyid, providerid) VALUES (:companyId, :providerId)");
+		query.setParameter("companyId", benefitPlan.companies.getCompanyId());
+		query.setParameter("providerId", benefitPlan.provider.getProviderId());
+		query.executeUpdate();
 		return benefitPlan;
 	}
 	

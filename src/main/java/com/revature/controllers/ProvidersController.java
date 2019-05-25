@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
+import com.revature.entities.BenefitPlanDTO;
 import com.revature.entities.Company;
 import com.revature.entities.Providers;
 import com.revature.services.ProvidersService;
@@ -34,7 +35,7 @@ public class ProvidersController {
 		this.providersService = providersService;
 	}
 
-	@GetMapping("/getall")
+	@PostMapping("/getall")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Providers> getAll() {
 		return this.providersService.getAll();
