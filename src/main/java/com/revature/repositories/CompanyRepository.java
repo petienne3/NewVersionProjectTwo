@@ -37,8 +37,6 @@ SessionFactory sf;
     		.setParameter("companyemail", credentials.getUserEmail()).list();
     	Company company = companyList.get(0);
     	
-    	System.out.println("company:" +company);
-    	
     	if(company.getPassword().equals(credentials.getPassword())) {
     		return company;
     	}else {

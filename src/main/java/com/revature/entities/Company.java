@@ -23,11 +23,11 @@ public class Company {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int companyId;
-	
+	@JsonIgnore
 	private String companyemail;
 	
 	private String companyname;
-	
+	@JsonIgnore
 	private String password;
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY)
