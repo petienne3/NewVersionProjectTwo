@@ -28,11 +28,15 @@ public class BenefitPlanRepository {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public BenefitPlan getById(int id) {
 		Session session = sf.getCurrentSession();
-		List<BenefitPlan> benefitList = session.createQuery("Select b from BenefitPlan b where b.companyid = :companyid")
-			.setParameter("companyid", id).list();
-		BenefitPlan benefitPlan = benefitList.get(0);
-		return session.get(BenefitPlan.class, id);
-	}
+//		List<BenefitPlan> benefitList = session.createQuery("Select b from BenefitPlan b where b.companyid = :companyid")
+//			.setParameter("companyid", id).list();
+//			BenefitPlan benefitPlan = benefitList.get(0);
+			return session.get(BenefitPlan.class, id);
+		}
+
+//		if (benefitList != null) { 
+//	} throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+//		}
 	
 	
 	@Transactional(propagation = Propagation.REQUIRED)

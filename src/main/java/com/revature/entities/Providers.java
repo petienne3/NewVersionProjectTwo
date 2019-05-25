@@ -1,19 +1,11 @@
 package com.revature.entities;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.validation.constraints.Positive;
 
 @Entity
 public class Providers {
@@ -29,15 +21,15 @@ public class Providers {
 	@Column(nullable = false)
 	private String Name;
 	
-//	@ManyToMany(fetch = FetchType.EAGER)
+//	@ManyToOne(fetch = FetchType.EAGER)
 //	@JoinColumn(name = "companyId")
-//	public List<Company> company;
+//	public Company company;
+//	
+
 	
-	
-	@OneToMany(fetch = FetchType.EAGER)
-	
-	public List<BenefitPlan> benefitPlan;
-	
+//	@OneToMany(fetch = FetchType.EAGER)
+//	public List<BenefitPlan> benefitPlan;
+//	
 	//	@JoinTable(name = "Joining_Providers_n_BenefitPlan"
 //	, joinColumns = { 
 //			,inverseJoinColumns = {@JoinColumn(name = "providerId")})	
@@ -46,6 +38,7 @@ public class Providers {
 	
 	private int status;
 	
+	@Positive
 	private double cost;
 
 	public int getProviderId() {
@@ -72,14 +65,6 @@ public class Providers {
 		Name = name;
 	}
 
-	public List<BenefitPlan> getBenefitPlan() {
-		return benefitPlan;
-	}
-
-	public void setBenefitPlan(List<BenefitPlan> benefitPlan) {
-		this.benefitPlan = benefitPlan;
-	}
-
 	public int getStatus() {
 		return status;
 	}
@@ -101,7 +86,6 @@ public class Providers {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((Name == null) ? 0 : Name.hashCode());
-		result = prime * result + ((benefitPlan == null) ? 0 : benefitPlan.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(cost);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -125,11 +109,6 @@ public class Providers {
 				return false;
 		} else if (!Name.equals(other.Name))
 			return false;
-		if (benefitPlan == null) {
-			if (other.benefitPlan != null)
-				return false;
-		} else if (!benefitPlan.equals(other.benefitPlan))
-			return false;
 		if (Double.doubleToLongBits(cost) != Double.doubleToLongBits(other.cost))
 			return false;
 		if (description == null) {
@@ -146,17 +125,15 @@ public class Providers {
 
 	@Override
 	public String toString() {
-		return "Providers [providerId=" + providerId + ", description=" + description + ", Name=" + Name
-				+ ", benefitPlan=" + benefitPlan + ", status=" + status + ", cost=" + cost + "]";
+		return "Providers [providerId=" + providerId + ", description=" + description + ", Name=" + Name + ", status="
+				+ status + ", cost=" + cost + "]";
 	}
 
-	public Providers(int providerId, String description, String name, List<BenefitPlan> benefitPlan, int status,
-			double cost) {
+	public Providers(int providerId, String description, String name, int status, @Positive double cost) {
 		super();
 		this.providerId = providerId;
 		this.description = description;
 		Name = name;
-		this.benefitPlan = benefitPlan;
 		this.status = status;
 		this.cost = cost;
 	}
