@@ -30,8 +30,9 @@ public class Company {
 	private String companyemail;
 	
 	private String companyname;
+
 	
-	@NotNull
+	@JsonIgnore
 	private String password;
 	
 	@JsonIgnore
