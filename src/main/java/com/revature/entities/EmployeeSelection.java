@@ -33,9 +33,9 @@ public class EmployeeSelection {
 	@JoinColumn(name = "employeeId")
 	public Employee employee;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name= "typeId")
-	public TypeBenefits typeBenefits;
+//	@ManyToOne(fetch = FetchType.EAGER)
+//	@JoinColumn(name= "typeId")
+//	public TypeBenefits typeBenefits;
 	
 	
 //	@JsonIgnore
@@ -47,66 +47,45 @@ public class EmployeeSelection {
 	@JoinColumn(name = "companyId")
 	public Company company;
 
-
 	public int getEmployeeSelectionId() {
 		return employeeSelectionId;
 	}
-
 
 	public void setEmployeeSelectionId(int employeeSelectionId) {
 		this.employeeSelectionId = employeeSelectionId;
 	}
 
-
 	public boolean isChoose() {
 		return choose;
 	}
-
 
 	public void setChoose(boolean choose) {
 		this.choose = choose;
 	}
 
-
 	public BenefitPlan getBenefitPlan() {
 		return benefitPlan;
 	}
-
 
 	public void setBenefitPlan(BenefitPlan benefitPlan) {
 		this.benefitPlan = benefitPlan;
 	}
 
-
 	public Employee getEmployee() {
 		return employee;
 	}
-
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
 
-
-	public TypeBenefits getTypeBenefits() {
-		return typeBenefits;
-	}
-
-
-	public void setTypeBenefits(TypeBenefits typeBenefits) {
-		this.typeBenefits = typeBenefits;
-	}
-
-
 	public Company getCompany() {
 		return company;
 	}
 
-
 	public void setCompany(Company company) {
 		this.company = company;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -117,10 +96,8 @@ public class EmployeeSelection {
 		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
 		result = prime * result + employeeSelectionId;
-		result = prime * result + ((typeBenefits == null) ? 0 : typeBenefits.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -150,39 +127,31 @@ public class EmployeeSelection {
 			return false;
 		if (employeeSelectionId != other.employeeSelectionId)
 			return false;
-		if (typeBenefits == null) {
-			if (other.typeBenefits != null)
-				return false;
-		} else if (!typeBenefits.equals(other.typeBenefits))
-			return false;
 		return true;
 	}
-
 
 	@Override
 	public String toString() {
 		return "EmployeeSelection [employeeSelectionId=" + employeeSelectionId + ", choose=" + choose + ", benefitPlan="
-				+ benefitPlan + ", employee=" + employee + ", typeBenefits=" + typeBenefits + ", company=" + company
-				+ "]";
+				+ benefitPlan + ", employee=" + employee + ", company=" + company + "]";
 	}
 
-
 	public EmployeeSelection(int employeeSelectionId, boolean choose, BenefitPlan benefitPlan, Employee employee,
-			TypeBenefits typeBenefits, Company company) {
+			Company company) {
 		super();
 		this.employeeSelectionId = employeeSelectionId;
 		this.choose = choose;
 		this.benefitPlan = benefitPlan;
 		this.employee = employee;
-		this.typeBenefits = typeBenefits;
 		this.company = company;
 	}
-
 
 	public EmployeeSelection() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+
+	
 
 }

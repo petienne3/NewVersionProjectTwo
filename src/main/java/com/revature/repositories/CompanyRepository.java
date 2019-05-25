@@ -35,12 +35,8 @@ SessionFactory sf;
     	Session session = sf.getCurrentSession();
     	List<Company> companyList = session.createQuery("Select c from Company c where c.companyemail = :companyemail")
     		.setParameter("companyemail", credentials.getUserEmail()).list();
-    	
-
-    	
     	Company company = companyList.get(0);
     	System.out.println("company:" +company);
-
     	if(company.getPassword().equals(credentials.getPassword())) {
     		return company;
     	}else {
