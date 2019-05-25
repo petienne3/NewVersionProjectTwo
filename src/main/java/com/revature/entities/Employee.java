@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -26,14 +28,17 @@ public class Employee {
 	private int employeeId;
 	
 	@JsonIgnore
+	@Email
+	@NotNull
 	private String employeeEmail;
+	
 	@JsonIgnore
 	private String employeePassword;
 	
-	
+	@NotNull
 	private String employeeFirstName;
 	
-	
+	@NotNull
 	private String employeeLastName;
 	
 //	@ManyToOne(fetch = FetchType.LAZY)

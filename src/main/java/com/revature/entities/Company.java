@@ -13,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -24,11 +26,14 @@ public class Company {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int companyId;
 	
+	@Email(message = "Please Enter a Valid Email")
 	private String companyemail;
 	
 	private String companyname;
 	
+	@NotNull
 	private String password;
+	
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn (name = "employeeId")

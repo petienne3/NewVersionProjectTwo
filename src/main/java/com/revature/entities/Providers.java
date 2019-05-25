@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Positive;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -46,6 +47,7 @@ public class Providers {
 	
 	private int status;
 	
+	@Positive
 	private double cost;
 
 	public int getProviderId() {
