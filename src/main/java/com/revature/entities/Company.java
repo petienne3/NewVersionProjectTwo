@@ -40,10 +40,10 @@ public class Company {
 	@JoinColumn (name = "employeeId")
 	public List<Employee> employee;
 	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn (name = "benefitId")
-	public List<BenefitPlan> benefitPlan;
+//	@JsonIgnore
+//	@OneToMany(fetch = FetchType.LAZY)
+//	@JoinColumn (name = "benefitid")
+//	public List<BenefitPlan> benefitPlan;
 	
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY)
@@ -90,14 +90,6 @@ public class Company {
 		this.employee = employee;
 	}
 
-	public List<BenefitPlan> getBenefitPlan() {
-		return benefitPlan;
-	}
-
-	public void setBenefitPlan(List<BenefitPlan> benefitPlan) {
-		this.benefitPlan = benefitPlan;
-	}
-
 	public List<EmployeeSelection> getEmployeeSelectionId() {
 		return employeeSelectionId;
 	}
@@ -110,7 +102,6 @@ public class Company {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((benefitPlan == null) ? 0 : benefitPlan.hashCode());
 		result = prime * result + companyId;
 		result = prime * result + ((companyemail == null) ? 0 : companyemail.hashCode());
 		result = prime * result + ((companyname == null) ? 0 : companyname.hashCode());
@@ -129,11 +120,6 @@ public class Company {
 		if (getClass() != obj.getClass())
 			return false;
 		Company other = (Company) obj;
-		if (benefitPlan == null) {
-			if (other.benefitPlan != null)
-				return false;
-		} else if (!benefitPlan.equals(other.benefitPlan))
-			return false;
 		if (companyId != other.companyId)
 			return false;
 		if (companyemail == null) {
@@ -167,19 +153,18 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Company [companyId=" + companyId + ", companyemail=" + companyemail + ", companyname=" + companyname
-				+ ", password=" + password + ", employee=" + employee.size() + ", benefitPlan=" + benefitPlan.size()
-				+ ", employeeSelectionId=" + employeeSelectionId.size() + "]";
+				+ ", password=" + password + ", employee=" + employee + ", employeeSelectionId=" + employeeSelectionId
+				+ "]";
 	}
 
-	public Company(int companyId, String companyemail, String companyname, String password, List<Employee> employee,
-			List<BenefitPlan> benefitPlan, List<EmployeeSelection> employeeSelectionId) {
+	public Company(int companyId, @Email(message = "Please Enter a Valid Email") String companyemail,
+			String companyname, String password, List<Employee> employee, List<EmployeeSelection> employeeSelectionId) {
 		super();
 		this.companyId = companyId;
 		this.companyemail = companyemail;
 		this.companyname = companyname;
 		this.password = password;
 		this.employee = employee;
-		this.benefitPlan = benefitPlan;
 		this.employeeSelectionId = employeeSelectionId;
 	}
 
@@ -187,7 +172,6 @@ public class Company {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 
 	
 	
