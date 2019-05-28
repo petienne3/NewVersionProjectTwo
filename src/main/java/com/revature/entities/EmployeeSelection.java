@@ -5,9 +5,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class EmployeeSelection {
@@ -16,15 +15,37 @@ public class EmployeeSelection {
 	@GeneratedValue (strategy=GenerationType.IDENTITY)
 	private int employeeSelectionId;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinTable(name = "benefitId")
-	public BenefitPlan benefit;
+	private boolean choose;
 	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinTable(name = "employeeId")
+//	@ManyToOne(fetch = FetchType.EAGER)
+//	@JoinTable(name = "benefitId")
+//	public BenefitPlan benefit;
+//	
+//	@OneToOne(fetch = FetchType.EAGER)
+//	@JoinTable(name = "employeeId")
+//	public Employee employee;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "benefitid")
+	public BenefitPlan benefitPlan;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "employeeId")
 	public Employee employee;
 	
-	public int Choice;
+//	@ManyToOne(fetch = FetchType.EAGER)
+//	@JoinColumn(name= "typeId")
+//	public TypeBenefits typeBenefits;
+	
+	
+//	@JsonIgnore
+//	@OneToMany(fetch = FetchType.LAZY)
+//	@JoinColumn (name = "benefitId")
+//	public List<BenefitPlan> benefitPlan;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "companyId")
+	public Company company;
 
 	public int getEmployeeSelectionId() {
 		return employeeSelectionId;
@@ -34,12 +55,20 @@ public class EmployeeSelection {
 		this.employeeSelectionId = employeeSelectionId;
 	}
 
-	public BenefitPlan getBenefit() {
-		return benefit;
+	public boolean isChoose() {
+		return choose;
 	}
 
-	public void setBenefit(BenefitPlan benefit) {
-		this.benefit = benefit;
+	public void setChoose(boolean choose) {
+		this.choose = choose;
+	}
+
+	public BenefitPlan getBenefitPlan() {
+		return benefitPlan;
+	}
+
+	public void setBenefitPlan(BenefitPlan benefitPlan) {
+		this.benefitPlan = benefitPlan;
 	}
 
 	public Employee getEmployee() {
@@ -50,20 +79,21 @@ public class EmployeeSelection {
 		this.employee = employee;
 	}
 
-	public int getChoice() {
-		return Choice;
+	public Company getCompany() {
+		return company;
 	}
 
-	public void setChoice(int choice) {
-		Choice = choice;
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + Choice;
-		result = prime * result + ((benefit == null) ? 0 : benefit.hashCode());
+		result = prime * result + ((benefitPlan == null) ? 0 : benefitPlan.hashCode());
+		result = prime * result + (choose ? 1231 : 1237);
+		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
 		result = prime * result + employeeSelectionId;
 		return result;
@@ -78,12 +108,17 @@ public class EmployeeSelection {
 		if (getClass() != obj.getClass())
 			return false;
 		EmployeeSelection other = (EmployeeSelection) obj;
-		if (Choice != other.Choice)
-			return false;
-		if (benefit == null) {
-			if (other.benefit != null)
+		if (benefitPlan == null) {
+			if (other.benefitPlan != null)
 				return false;
-		} else if (!benefit.equals(other.benefit))
+		} else if (!benefitPlan.equals(other.benefitPlan))
+			return false;
+		if (choose != other.choose)
+			return false;
+		if (company == null) {
+			if (other.company != null)
+				return false;
+		} else if (!company.equals(other.company))
 			return false;
 		if (employee == null) {
 			if (other.employee != null)
@@ -97,22 +132,25 @@ public class EmployeeSelection {
 
 	@Override
 	public String toString() {
-		return "EmployeeSelection [employeeSelectionId=" + employeeSelectionId + ", benefit=" + benefit + ", employee="
-				+ employee + ", Choice=" + Choice + "]";
+		return "EmployeeSelection [employeeSelectionId=" + employeeSelectionId + ", choose=" + choose + ", benefitPlan="
+				+ benefitPlan + ", employee=" + employee + ", company=" + company + "]";
 	}
 
-	public EmployeeSelection(int employeeSelectionId, BenefitPlan benefit, Employee employee, int choice) {
+	public EmployeeSelection(int employeeSelectionId, boolean choose, BenefitPlan benefitPlan, Employee employee,
+			Company company) {
 		super();
 		this.employeeSelectionId = employeeSelectionId;
-		this.benefit = benefit;
+		this.choose = choose;
+		this.benefitPlan = benefitPlan;
 		this.employee = employee;
-		Choice = choice;
+		this.company = company;
 	}
 
 	public EmployeeSelection() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 
 	
 

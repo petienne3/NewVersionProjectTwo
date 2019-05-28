@@ -1,18 +1,15 @@
 package com.revature.entities;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class BenefitPlan {
@@ -21,6 +18,7 @@ public class BenefitPlan {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int benefitId;
 	
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "providers_benefitPlan", joinColumns = { @JoinColumn(name = "benefit_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "provider_id") })
@@ -35,6 +33,32 @@ public class BenefitPlan {
 	@JoinColumn(name = "employeeSelection_id")
 	private EmployeeSelection employeeSelection;
 
+//	@OneToMany(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "providerId")
+//	public List<Providers>provider;
+	
+//	@OneToMany(fetch = FetchType.LAZY)
+//	@JoinTable(name = "Joining_Benefit_n_company"
+//	, joinColumns = { @JoinColumn (name = "company_Id")}
+//	,inverseJoinColumns = {@JoinColumn(name = "benefitId")})
+//	public Company company;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn (name = "companyid")
+	public Company companies;
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn (name = "employeeSelectionId")
+	public EmployeeSelection employeeSelection;
+	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn (name = "providerId")
+	public Providers provider;
+
+
+
 	/**
 	 * @return the benefitId
 	 */
@@ -42,12 +66,17 @@ public class BenefitPlan {
 		return benefitId;
 	}
 
+
 	/**
 	 * @param benefitId the benefitId to set
 	 */
+
+
+
 	public void setBenefitId(int benefitId) {
 		this.benefitId = benefitId;
 	}
+
 
 	/**
 	 * @return the provider
@@ -89,18 +118,44 @@ public class BenefitPlan {
 	 */
 	public void setEmployeeSelection(EmployeeSelection employeeSelection) {
 		this.employeeSelection = employeeSelection;
+
+
+	public Company getCompanies() {
+		return companies;
 	}
+
+
+	public void setCompanies(Company companies) {
+		this.companies = companies;
+	}
+
+
+	public Providers getProvider() {
+		return provider;
+	}
+
+
+	public void setProvider(Providers provider) {
+		this.provider = provider;
+
+	}
+
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + benefitId;
+
 		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		result = prime * result + ((employeeSelection == null) ? 0 : employeeSelection.hashCode());
+
+		result = prime * result + ((companies == null) ? 0 : companies.hashCode());
+
 		result = prime * result + ((provider == null) ? 0 : provider.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -113,6 +168,7 @@ public class BenefitPlan {
 		BenefitPlan other = (BenefitPlan) obj;
 		if (benefitId != other.benefitId)
 			return false;
+
 		if (company == null) {
 			if (other.company != null)
 				return false;
@@ -122,6 +178,12 @@ public class BenefitPlan {
 			if (other.employeeSelection != null)
 				return false;
 		} else if (!employeeSelection.equals(other.employeeSelection))
+
+		if (companies == null) {
+			if (other.companies != null)
+				return false;
+		} else if (!companies.equals(other.companies))
+
 			return false;
 		if (provider == null) {
 			if (other.provider != null)
@@ -131,20 +193,33 @@ public class BenefitPlan {
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
+
 		return "BenefitPlan [benefitId=" + benefitId + ", provider=" + provider + ", company=" + company
 				+ ", employeeSelection=" + employeeSelection + "]";
 	}
 
 	public BenefitPlan(int benefitId, List<Providers> provider, List<Company> company,
 			EmployeeSelection employeeSelection) {
+
+		return "BenefitPlan [benefitId=" + benefitId + ", companies=" + companies + ", provider=" + provider + "]";
+	}
+
+
+	public BenefitPlan(int benefitId, Company companies, Providers provider) {
+
 		super();
 		this.benefitId = benefitId;
+		this.companies = companies;
 		this.provider = provider;
+
 		this.company = company;
 		this.employeeSelection = employeeSelection;
+
 	}
+
 
 	public BenefitPlan() {
 		super();
@@ -152,7 +227,10 @@ public class BenefitPlan {
 	}
 	
 	
+
 	
 	
+
+
 
 }

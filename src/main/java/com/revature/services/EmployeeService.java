@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.revature.entities.Credentials;
 import com.revature.entities.Employee;
 import com.revature.repositories.EmployeeRepository;
 
@@ -34,5 +35,15 @@ public class EmployeeService {
 	public Employee deleteById(int id) {
 		return this.employeeRepository.deleteById(id);
 	}
+	
+
+	public Employee create(Credentials credentials) {
+		return this.employeeRepository.login(credentials);
+	}
+	
+	public void createPassword(Credentials credentials) {
+		this.employeeRepository.createPassword(credentials);
+	}
+
 
 }

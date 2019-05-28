@@ -1,6 +1,5 @@
 package com.revature.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -8,6 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
@@ -18,19 +21,31 @@ public class Employee {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int employeeId;
 	
-	@Column(nullable = false, length = 30)
+	@JsonIgnore
+	@Email
+	@NotNull
 	private String employeeEmail;
 	
+	@JsonIgnore
 	private String employeePassword;
 	
-	@Column(nullable = false)
+	@NotNull
 	private String employeeFirstName;
 	
-	@Column(nullable = false)
+	@NotNull
 	private String employeeLastName;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "companyId")
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "employeeSelectionId")
+//	public EmployeeSelection employeeSelection;
+	
+//	@JsonIgnore
+//	@ManyToMany(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "employeeSelectionId")
+//	public List<EmployeeSelection> employeeSelection;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn (name = "companyId")
 	public Company company;
 	
 
@@ -141,8 +156,8 @@ public class Employee {
 				+ employeeLastName + ", company=" + company + "]";
 	}
 
-	public Employee(int employeeId, String employeeEmail, String employeePassword, String employeeFirstName,
-			String employeeLastName, Company company) {
+	public Employee(int employeeId, @Email @NotNull String employeeEmail, String employeePassword,
+			@NotNull String employeeFirstName, @NotNull String employeeLastName, Company company) {
 		super();
 		this.employeeId = employeeId;
 		this.employeeEmail = employeeEmail;
@@ -156,6 +171,9 @@ public class Employee {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
+	
 	
 }

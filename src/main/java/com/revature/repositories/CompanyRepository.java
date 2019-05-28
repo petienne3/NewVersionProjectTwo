@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -14,9 +15,12 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.entities.Company;
 import com.revature.entities.Credentials;
+import com.revature.entities.Providers;
 
 @Repository
 public class CompanyRepository {
+	
+	Providers provider;
 	
 SessionFactory sf;
     
@@ -32,15 +36,14 @@ SessionFactory sf;
     	List<Company> companyList = session.createQuery("Select c from Company c where c.companyemail = :companyemail")
     		.setParameter("companyemail", credentials.getUserEmail()).list();
     	Company company = companyList.get(0);
-    	
     	System.out.println("company:" +company);
-    	
     	if(company.getPassword().equals(credentials.getPassword())) {
     		return company;
     	}else {
-    		return null;
+    		throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+    		}
     	}
-    }
+    
     
     
     @Transactional(propagation = Propagation.REQUIRED)
@@ -59,8 +62,10 @@ SessionFactory sf;
     
     @Transactional (propagation = Propagation.REQUIRED)
     public Company update(Company company ) {
-        Session session = sf.getCurrentSession();
-        session.merge(company);
+//        Session session = sf.getCurrentSession();
+//        Query update = session.createQuery("update Company set provider_id = :provider_id" + "where company_id = :company_id")
+//        		.setParameter("provider_id", company.provider.getProviderId().list());
+//        session.merge(company);
         return company;
         
     }//end method update

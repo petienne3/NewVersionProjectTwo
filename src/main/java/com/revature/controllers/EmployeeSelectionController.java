@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.entities.EmployeeSelection;
+import com.revature.entities.EmployeeSelectionDTO;
 import com.revature.services.EmployeeSelectionService;
 
 
@@ -41,9 +43,15 @@ public class EmployeeSelectionController {
 	
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
-	public EmployeeSelection createdEmployeeSelection(@RequestBody EmployeeSelection employeeSelection) {
-		return this.employeeSelectionService.create(employeeSelection);
+	public List<EmployeeSelection> createdEmployeeSelection(@RequestBody EmployeeSelectionDTO employeeSelectionDTO) {
+		return this.employeeSelectionService.create(employeeSelectionDTO);
 	}
+	
+//	@PostMapping("/choose")
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public EmployeeSelection EmployeeChooses(@RequestBody EmployeeSelection employeeSelection) {
+//		return this.employeeSelectionService.choose(employeeSelection);
+//	}
 	
 	@PutMapping("")
 	public EmployeeSelection updateEmployeeSelection(@RequestBody EmployeeSelection employeeSelection) {

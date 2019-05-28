@@ -1,10 +1,13 @@
 package com.revature.services;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.EmployeeSelection;
+import com.revature.entities.EmployeeSelectionDTO;
 import com.revature.repositories.EmployeeSelectionRepository;
 
 
@@ -24,8 +27,8 @@ public class EmployeeSelectionService {
 		return this.employeeSelectionRepository.getById(id);
 	}
 	
-	public EmployeeSelection create(EmployeeSelection employeeSelection) {
-		return this.employeeSelectionRepository.create(employeeSelection);
+	public List<EmployeeSelection> create(EmployeeSelectionDTO employeeSelectionDTO) {
+		return this.employeeSelectionRepository.create(employeeSelectionDTO);
 	}
 	
 	public EmployeeSelection update(EmployeeSelection employeeSelection) {
@@ -35,5 +38,10 @@ public class EmployeeSelectionService {
 	public EmployeeSelection deleteById(int id) {
 		return this.employeeSelectionRepository.deleteById(id);
 	}
+
+//	public EmployeeSelection choose(EmployeeSelection employeeSelection) {
+//		return this.employeeSelectionRepository.choose(employeeSelection);
+//
+//	}
 
 }

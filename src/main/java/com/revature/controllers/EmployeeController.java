@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
+import com.revature.entities.Company;
+import com.revature.entities.Credentials;
 import com.revature.entities.Employee;
+
+
 import com.revature.services.EmployeeService;
 
 @RestController
@@ -31,6 +35,14 @@ public class EmployeeController {
 	public EmployeeController(EmployeeService employeeService) {
 		this.employeeService = employeeService;
 	}
+	
+
+	@PostMapping("/login")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Employee login(@RequestBody Credentials credentials) {
+		return this.employeeService.create(credentials);
+	}
+
 	
 	@GetMapping("/{id}")
 	public Employee getById(@PathVariable int id) {
@@ -48,6 +60,12 @@ public class EmployeeController {
 	public Employee updateEmployee(@RequestBody Employee employee) {
 		return this.employeeService.update(employee);
 	}
+	
+    @PutMapping("/createPassword")
+    public void createPassword(@RequestBody Credentials credentials) {
+    	this.employeeService.createPassword(credentials);
+    	
+    }
 	
 	@DeleteMapping("/{id}")
 	public Employee deleteEmployee(@PathVariable int id) {

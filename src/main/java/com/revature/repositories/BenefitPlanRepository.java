@@ -1,9 +1,12 @@
 package com.revature.repositories;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -25,13 +28,24 @@ public class BenefitPlanRepository {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public BenefitPlan getById(int id) {
 		Session session = sf.getCurrentSession();
-		return session.get(BenefitPlan.class, id);
-	}
+//		List<BenefitPlan> benefitList = session.createQuery("Select b from BenefitPlan b where b.companyid = :companyid")
+//			.setParameter("companyid", id).list();
+//			BenefitPlan benefitPlan = benefitList.get(0);
+			return session.get(BenefitPlan.class, id);
+		}
+
+//		if (benefitList != null) { 
+//	} throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+//		}
+	
 	
 	@Transactional(propagation = Propagation.REQUIRED)
 	public BenefitPlan create(BenefitPlan benefitPlan) {
 		Session session = sf.getCurrentSession();
-		session.save(benefitPlan);
+		Query query = session.createSQLQuery("INSERT INTO benefitplan(companyid, providerid) VALUES (:companyId, :providerId)");
+		query.setParameter("companyId", benefitPlan.companies.getCompanyId());
+		query.setParameter("providerId", benefitPlan.provider.getProviderId());
+		query.executeUpdate();
 		return benefitPlan;
 	}
 	
@@ -51,4 +65,16 @@ public class BenefitPlanRepository {
 		session.delete(benefitPlan);
 		return benefitPlan;
 	}
+
+//	@Transactional(propagation = Propagation.REQUIRED)
+//	public BenefitPlan choice(BenefitChoice benefitChoice) {
+//		Session session = sf.getCurrentSession();
+//		List<BenefitPlan> benefitList = session.createQuery("Select b from BenefitPlan b where b.companyid = :companyid")
+//			.setParameter("companyid", benefitChoice.getCompanyid()).list();
+//		BenefitPlan benefitPlan = benefitList.get(0);
+//		
+//		System.out.println("benefitPlan Availabe:" +benefitPlan);
+//		
+//		return benefitPlan;
+//	}
 }

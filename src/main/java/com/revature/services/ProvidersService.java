@@ -1,9 +1,14 @@
 package com.revature.services;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
+import com.revature.entities.Company;
 import com.revature.entities.Providers;
 import com.revature.repositories.ProvidersRepository;
 
@@ -33,6 +38,11 @@ public class ProvidersService {
 	
 	public Providers deleteById(int id) {
 		return this.providersRepository.deleteById(id);
+	}
+
+	public List<Providers> getAll() {	
+		return this.providersRepository.getAll();
+
 	}
 
 }

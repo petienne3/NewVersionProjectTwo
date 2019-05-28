@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
+import com.revature.entities.BenefitPlanDTO;
+import com.revature.entities.Company;
 import com.revature.entities.Providers;
 import com.revature.services.ProvidersService;
 
@@ -31,7 +34,13 @@ public class ProvidersController {
 	public ProvidersController(ProvidersService providersService) {
 		this.providersService = providersService;
 	}
-	
+
+	@PostMapping("/getall")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Providers> getAll() {
+		return this.providersService.getAll();
+
+	}
 	@GetMapping("/{id}")
 	public Providers getById(@PathVariable int id) {
 		return Optional.ofNullable(this.providersService.getById(id))

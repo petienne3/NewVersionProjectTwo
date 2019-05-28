@@ -15,6 +15,12 @@ public class TypeBenefits {
 	
 	@Column
 	private String categories;
+	
+//	@JsonIgnore
+//	@OneToMany(fetch = FetchType.LAZY)
+//	@JoinColumn (name = "employeeSelectionId")
+//	public List<EmployeeSelection> employeeSelection;
+
 
 	public int getTypeId() {
 		return typeId;
@@ -76,6 +82,8 @@ public class TypeBenefits {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
 
+	
+	
+	
 }
